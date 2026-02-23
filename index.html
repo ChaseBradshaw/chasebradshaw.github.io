@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio // SYSTEM_ARCHITECT</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'retro-bg': '#E0DBD3',
+            'retro-window': '#F5F3EF',
+            'retro-dark': '#111111',
+            'retro-blue': '#0000EE',
+            'retro-gray': '#9CA3AF',
+            'retro-border': '#222222',
+          },
+          fontFamily: {
+            'mono': ['"Space Mono"', 'monospace'],
+            'pixel': ['"VT323"', 'monospace'],
+          },
+          boxShadow: {
+            'hard': '4px 4px 0px 0px #111111',
+            'hard-hover': '6px 6px 0px 0px #111111',
+            'hard-sm': '2px 2px 0px 0px #111111',
+          },
+          backgroundImage: {
+            'dither': 'radial-gradient(#111 1px, transparent 1px)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #E0DBD3;
+      background-image:
+        linear-gradient(rgba(18, 16, 16, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(18, 16, 16, 0.03) 1px, transparent 1px);
+      background-size: 20px 20px;
+      cursor: crosshair;
+      overflow-x: hidden;
+    }
+    .scanlines {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(to bottom, rgba(255,255,255,0) 50%, rgba(0,0,0,0.05) 50%);
+      background-size: 100% 4px;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.6;
+      animation: flicker 0.15s infinite;
+    }
+    @keyframes flicker {
+      0% { opacity: 0.58; }
+      5% { opacity: 0.62; }
+      10% { opacity: 0.6; }
+      15% { opacity: 0.65; }
+      100% { opacity: 0.6; }
+    }
+  </style>
+</head>
+<body class="font-mono text-retro-dark antialiased min-h-screen flex flex-col relative selection:bg-black selection:text-white">
+
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- Top Menu Bar: unified nav Home | Work | Projects -->
+  <header class="fixed top-0 left-0 w-full bg-retro-window border-b-2 border-retro-dark z-50 flex justify-between items-center px-2 h-10 select-none shadow-md">
+    <div class="flex items-center space-x-6 h-full">
+      <a href="index.html" class="flex items-center space-x-2 font-bold hover:bg-retro-dark hover:text-white px-2 cursor-pointer h-full transition-colors">
+        <i class="fa-solid fa-apple-whole"></i>
+        <span class="hidden sm:inline">SYSTEM</span>
+      </a>
+      <nav class="flex h-full">
+        <a href="index.html" class="nav-active px-3 h-full flex items-center hover:bg-retro-dark hover:text-white transition-colors border-l-2 border-retro-dark text-sm uppercase bg-retro-dark text-white">Home</a>
+        <a href="work.html" class="px-3 h-full flex items-center hover:bg-retro-dark hover:text-white transition-colors border-l-2 border-retro-dark text-sm uppercase">Work</a>
+        <a href="projects.html" class="px-3 h-full flex items-center hover:bg-retro-dark hover:text-white transition-colors border-l-2 border-r-2 border-retro-dark text-sm uppercase">Projects</a>
+      </nav>
+    </div>
+    <div class="font-pixel text-xl tracking-widest hidden md:block">
+      TIME: <span id="clock">00:00:00</span>
+    </div>
+  </header>
+
+  <main class="flex-grow pt-16 px-4 pb-12 sm:px-8 max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-8 relative z-10">
+
+    <aside class="md:col-span-3 space-y-6">
+      <div class="bg-retro-window border-2 border-retro-dark shadow-hard rounded-lg overflow-hidden group">
+        <div class="bg-retro-window border-b-2 border-retro-dark p-1 flex justify-between items-center px-2 handle cursor-move">
+          <span class="text-xs font-bold uppercase tracking-wider">user_id.bmp</span>
+          <div class="w-3 h-3 border-2 border-retro-dark bg-white hover:bg-black"></div>
+        </div>
+        <div class="p-4 flex flex-col items-center text-center">
+          <div class="w-32 h-32 border-2 border-retro-dark mb-4 bg-white relative overflow-hidden">
+            <img src="assets/images/profile_pic_full.jpg" alt="Chase Bradshaw headshot" class="w-full h-full object-cover">
+          </div>
+          <h1 class="text-xl font-bold mb-1">CHASE BRADSHAW</h1>
+          <p class="text-xs text-retro-gray pt-2 w-full">SALES ENGINEER</p>
+          <p class="text-xs text-retro-gray pt-2 w-full">SOLUTION ARCHITECT</p>
+          <p class="text-xs text-retro-gray pt-2 w-full">BUSINESS ANALYST</p>
+          <p class="text-xs mt-2 font-pixel text-lg">COSTA MESA, CA</p>
+        </div>
+      </div>
+    </aside>
+
+    <section class="md:col-span-9 space-y-8">
+
+      <div class="bg-retro-window border-2 border-retro-dark shadow-hard rounded-lg overflow-hidden relative">
+        <div class="border-b-2 border-retro-dark p-1 flex items-center justify-between px-2 bg-white">
+          <div class="flex space-x-1">
+            <div class="w-10 h-3 border-y-2 border-retro-dark"></div>
+          </div>
+          <span class="text-sm font-bold uppercase">Bio.txt</span>
+          <div class="w-4 h-4 border-2 border-retro-dark bg-white flex items-center justify-center cursor-pointer hover:bg-black hover:text-white transition">
+            <i class="fa-solid fa-xmark text-[10px]"></i>
+          </div>
+        </div>
+        <div class="p-6 md:p-10 relative">
+          <div class="absolute top-4 right-4 text-xs opacity-50 flex flex-col items-end hidden sm:flex">
+            <span>LAST_LOGIN: TODAY</span>
+            <span>IP: 13.59.226.167</span>
+          </div>
+          <h2 class="text-4xl md:text-6xl font-black mb-6 leading-none tracking-tighter">
+            SYSTEMS WITH  <br>
+            <span class="text-transparent bg-clip-text bg-retro-dark" style="-webkit-text-stroke: 1px black;">INTENTION</span><br>
+          </h2>
+          <p class="text-lg md:text-xl leading-relaxed mb-8 max-w-2xl border-l-4 border-retro-dark pl-4">
+            <span class="font-bold">&gt;&gt; ABOUT_ME:</span> I design and lead complex eCommerce systems for enterprise clients, translating business goals into scalable technical solutions. With a background in project management and hands-on development, I bridge the gap between stakeholders and engineers — making sure what we build actually works in the real world.<span class="blink">_</span>
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="work.html" class="group relative px-6 py-3 border-2 border-retro-dark bg-white font-bold uppercase tracking-widest hover:bg-retro-dark hover:text-white transition-all shadow-hard-sm hover:shadow-hard-hover active:translate-y-1 active:shadow-none">
+              View Work
+            </a>
+            <a href="#contact" class="group px-6 py-3 border-2 border-retro-dark bg-transparent font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4">
+              Ping Me
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div id="projects" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <article class="bg-retro-window border-2 border-retro-dark shadow-hard rounded-lg group hover:-translate-y-1 transition-transform duration-200">
+          <div class="border-b-2 border-retro-dark p-2 flex justify-between items-center bg-gray-100">
+            <div class="flex items-center space-x-2">
+              <i class="fa-regular fa-folder-open"></i>
+              <span class="text-xs font-bold">SILK_COMMERCE</span>
+            </div>
+            <span class="text-[10px] text-gray-500">2025–</span>
+          </div>
+          <div class="p-4">
+            <a href="work/silk-senior-strategist.html" class="block">
+              <div class="aspect-video w-full border-2 border-retro-dark mb-4 overflow-hidden relative grayscale group-hover:grayscale-0 transition-all bg-gray-300">
+                <div class="w-full h-full flex items-center justify-center text-retro-gray text-6xl"><i class="fa-solid fa-store"></i></div>
+                <div class="absolute inset-0 bg-dither opacity-10"></div>
+              </div>
+              <h3 class="text-xl font-bold mb-2">Senior Solution Strategist</h3>
+              <p class="text-sm mb-4 leading-relaxed">Enterprise eCommerce system architecture and technical lead for sales—translating complex technical concepts for stakeholders.</p>
+              <div class="flex gap-2 text-[10px] uppercase font-bold">
+                <span class="bg-retro-dark text-white px-1">BigCommerce</span>
+                <span class="border border-retro-dark px-1">eCommerce</span>
+              </div>
+            </a>
+          </div>
+        </article>
+
+        <article class="bg-retro-window border-2 border-retro-dark shadow-hard rounded-lg group hover:-translate-y-1 transition-transform duration-200">
+          <div class="border-b-2 border-retro-dark p-2 flex justify-between items-center bg-gray-100">
+            <div class="flex items-center space-x-2">
+              <i class="fa-regular fa-file-code"></i>
+              <span class="text-xs font-bold">SILK_COMMERCE</span>
+            </div>
+            <span class="text-[10px] text-gray-500">2022–25</span>
+          </div>
+          <div class="p-4">
+            <a href="work/silk-project-manager.html" class="block">
+              <div class="aspect-video w-full border-2 border-retro-dark mb-4 overflow-hidden relative grayscale group-hover:grayscale-0 transition-all bg-gray-300">
+                <div class="w-full h-full flex items-center justify-center text-retro-gray text-6xl"><i class="fa-solid fa-tasks"></i></div>
+                <div class="absolute inset-0 bg-dither opacity-10"></div>
+              </div>
+              <h3 class="text-xl font-bold mb-2">Project Manager</h3>
+              <p class="text-sm mb-4 leading-relaxed">Agile delivery for enterprise eCommerce; BigCommerce B2B Excellent Award 2023, 2024.</p>
+              <div class="flex gap-2 text-[10px] uppercase font-bold">
+                <span class="bg-retro-dark text-white px-1">Agile</span>
+                <span class="border border-retro-dark px-1">B2B</span>
+              </div>
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <div class="w-full border-2 border-retro-dark bg-retro-dark text-white py-2 marquee-container font-pixel text-xl uppercase rounded-sm">
+        <div class="marquee-content">
+          *** SYSTEM ALERT: CURRENTLY ACCEPTING NEW CONTRACTS *** EMAIL FOR INQUIRIES *** SYSTEM ALERT: CURRENTLY ACCEPTING NEW CONTRACTS *** EMAIL FOR INQUIRIES ***
+        </div>
+      </div>
+
+      <div class="bg-retro-dark text-white p-4 font-pixel text-lg border-2 border-retro-dark shadow-hard rounded-lg">
+        <p class="mb-4 text-green-400">root@admin:~# list_skills.sh</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 text-sm md:text-base font-mono">
+          <div class="flex justify-between"><span>&gt; LEADERSHIP</span><span>[||||||||||]</span></div>
+          <div class="flex justify-between"><span>&gt; PROJECT_MGMT</span><span>[||||||||||]</span></div>
+          <div class="flex justify-between"><span>&gt; ECOMMERCE</span><span>[||||||||||]</span></div>
+          <div class="flex justify-between"><span>&gt; BIGCOMMERCE</span><span>[||||||||..]</span></div>
+          <div class="flex justify-between"><span>&gt; JIRA/CONFLUENCE</span><span>[||||||||..]</span></div>
+          <div class="flex justify-between"><span>&gt; PYTHON/SQL</span><span>[||||||....]</span></div>
+        </div>
+        <p class="mt-4 animate-pulse">_</p>
+      </div>
+
+      <div id="contact" class="bg-retro-window border-2 border-retro-dark shadow-hard rounded-lg p-6 md:p-10 mb-20 text-center">
+        <h3 class="text-2xl font-bold mb-4 uppercase">Establish Communication</h3>
+        <p class="mb-6 max-w-lg mx-auto">Found somthing you like? Or just want to get in touch? Send me a message.</p>
+        <p class="mb-4 font-mono text-sm">
+          <a href="mailto:chase.bradshaw65@gmail.com" class="border-b-2 border-retro-dark hover:bg-retro-dark hover:text-white px-1 transition-colors">chase.bradshaw65@gmail.com</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="fixed bottom-0 w-full bg-gray-200 border-t-2 border-retro-dark text-xs font-mono py-1 px-4 flex justify-between z-50">
+    <div class="flex space-x-4">
+      <span>CONTACT:</span>
+      <a href="mailto:chase.bradshaw65@gmail.com" class="hover:underline">chase.bradshaw65@gmail.com</a>
+    </div>
+    <div>
+      <span>©2026 CHASE BRADSHAW</span>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    (function() {
+      var el = document.getElementById('clock');
+      if (el) {
+        function updateClock() {
+          var now = new Date();
+          el.textContent = now.toLocaleTimeString('en-US', { hour12: false });
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+      }
+    })();
+  </script>
+</body>
+</html>

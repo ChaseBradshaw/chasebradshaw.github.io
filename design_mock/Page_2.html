@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 
+AESTHETIC DNA:
+Trend Core: Early GUI / 1984 Desktop Metaphor / Brutalist File Manager
+Spice: High-contrast monochromatic grids, sharp drop shadows, striped title bars, pure technical typography.
+Palette: "Terminal Off-White" (#F4F4F0), "System Gray" (#CCCCCC), "Ink Black" (#050505).
+Vibe Check: Navigating the mainframe archives of a highly classified, severely aesthetic design bureau.
+-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INDEX // ARCHIVE DIRECTORY</title>
+
+    <!-- Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        offwhite: '#F4F4F0',
+                        sysgray: '#E0E0E0',
+                        sysdark: '#A3A3A3',
+                        ink: '#050505',
+                    },
+                    fontFamily: {
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                        sans: ['"Space Grotesk"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'hard': '8px 8px 0px 0px rgba(5,5,5,1)',
+                        'hard-sm': '4px 4px 0px 0px rgba(5,5,5,1)',
+                        'hard-hover': '12px 12px 0px 0px rgba(5,5,5,1)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Reset & Smoothness */
+        html { scroll-behavior: smooth; }
+        body { background-color: #E0E0E0; margin: 0; overflow-x: hidden; }
+
+        /* The "Checkerboard/Dither" Desktop Pattern */
+        .desktop-bg {
+            background-image: 
+                linear-gradient(45deg, #D6D6D6 25%, transparent 25%, transparent 75%, #D6D6D6 75%, #D6D6D6), 
+                linear-gradient(45deg, #D6D6D6 25%, transparent 25%, transparent 75%, #D6D6D6 75%, #D6D6D6);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+
+        /* 1980s Window Title Bar Stripes */
+        .title-stripes {
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent,
+                transparent 2px,
+                #050505 2px,
+                #050505 4px
+            );
+        }
+
+        /* Custom Blocky Scrollbar */
+        ::-webkit-scrollbar {
+            width: 16px;
+            border-left: 2px solid #050505;
+            background: #F4F4F0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #050505;
+            border: 2px solid #F4F4F0;
+        }
+        ::-webkit-scrollbar-button:single-button {
+            background-color: #F4F4F0;
+            display: block;
+            border: 2px solid #050505;
+            height: 16px;
+            width: 16px;
+        }
+        /* Up/Down arrow pseudo elements for scrollbar */
+        ::-webkit-scrollbar-button:single-button:horizontal:decrement {
+            background-image: url('data:image/svg+xml;utf8,<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 2L1 8H9L5 2Z" fill="%23050505"/></svg>');
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Image treatment: 1-bit dither simulation & contrast */
+        .image-mainframe {
+            filter: grayscale(100%) contrast(130%) sepia(20%) brightness(0.9);
+            mix-blend-mode: multiply;
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        /* Interactive Row Hover Magic */
+        .dir-row:hover .image-mainframe {
+            filter: grayscale(0%) contrast(100%) sepia(0%) brightness(1);
+            mix-blend-mode: normal;
+        }
+        .dir-row:hover .row-marquee {
+            width: 100%;
+            opacity: 1;
+        }
+        .dir-row:hover .row-text {
+            transform: translateX(20px);
+        }
+
+        /* Marquee Animation */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 10s linear infinite;
+        }
+
+        /* Blinking cursor */
+        .cursor-blink {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Glitch text effect for title */
+        .glitch-hover:hover {
+            text-shadow: 2px 0 #050505, -2px 0 #050505;
+            letter-spacing: -1px;
+        }
+    </style>
+</head>
+<body class="desktop-bg min-h-screen text-ink font-mono flex flex-col antialiased selection:bg-ink selection:text-offwhite">
+
+    <!-- Global System Top Bar -->
+    <header class="fixed top-0 left-0 w-full h-8 bg-offwhite border-b-2 border-ink z-50 flex items-center justify-between px-4 text-xs font-bold uppercase tracking-widest shadow-sm">
+        <div class="flex items-center gap-6 h-full">
+            <span class="flex items-center gap-2 cursor-pointer hover:bg-ink hover:text-offwhite h-full px-2 transition-colors">
+                <i class="ph-fill ph-apple-podcasts text-lg"></i>
+                SYSTEM
+            </span>
+            <span class="hidden md:flex items-center gap-4 h-full">
+                <a href="#" class="h-full flex items-center px-2 hover:bg-ink hover:text-offwhite transition-colors" rel="nofollow">File</a>
+                <a href="#" class="h-full flex items-center px-2 hover:bg-ink hover:text-offwhite transition-colors bg-ink text-offwhite" rel="nofollow">Directory</a>
+                <a href="#" class="h-full flex items-center px-2 hover:bg-ink hover:text-offwhite transition-colors" rel="nofollow">View</a>
+                <a href="#" class="h-full flex items-center px-2 hover:bg-ink hover:text-offwhite transition-colors" rel="nofollow">Special</a>
+            </span>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="hidden sm:inline-block">MEM: 640K OK</span>
+            <span class="flex items-center gap-2">
+                <i class="ph ph-clock"></i>
+                <span id="sys-clock">12:43 PM</span>
+            </span>
+        </div>
+    </header>
+
+    <!-- Main Desktop Layout -->
+    <main class="flex-grow pt-16 pb-12 px-4 md:px-8 xl:px-16 flex flex-col xl:flex-row items-start justify-center gap-8 relative z-10 w-full max-w-[1800px] mx-auto">
+
+        <!-- WINDOW 1: DIRECTORY LISTING -->
+        <section class="w-full xl:w-2/3 bg-offwhite border-2 border-ink rounded-md shadow-hard flex flex-col relative z-20 group/window transition-transform hover:-translate-y-1 hover:-translate-x-1 hover:shadow-hard-hover duration-300">
+            
+            <!-- Window Title Bar -->
+            <div class="h-8 border-b-2 border-ink flex items-center px-2 justify-between bg-offwhite rounded-t-sm">
+                <!-- Close/Min/Max Buttons -->
+                <div class="flex items-center gap-1.5 ml-1">
+                    <div class="w-3 h-3 border-2 border-ink active:bg-ink"></div>
+                    <div class="w-3 h-3 border-2 border-ink active:bg-ink"></div>
+                    <div class="w-3 h-3 border-2 border-ink active:bg-ink"></div>
+                </div>
+                <!-- Title Stripes & Text -->
+                <div class="flex-grow flex items-center justify-center relative mx-4 h-full">
+                    <div class="absolute inset-0 title-stripes opacity-40"></div>
+                    <div class="bg-offwhite px-4 relative z-10 font-bold text-xs tracking-widest text-center">
+                        <i class="ph-fill ph-hard-drives mr-1"></i> A:\PUBLIC_WORKS
+                    </div>
+                </div>
+                <!-- Right Info -->
+                <div class="text-[10px] font-bold px-2 border-l-2 border-ink h-full flex items-center">
+                    ITEMS: 05
+                </div>
+            </div>
+
+            <!-- Table Header -->
+            <div class="grid grid-cols-12 gap-4 px-6 py-3 border-b-2 border-ink bg-sysgray text-xs font-bold uppercase tracking-widest sticky top-0">
+                <div class="col-span-1 border-r-2 border-ink">ID</div>
+                <div class="col-span-6 md:col-span-5 border-r-2 border-ink">Project_Name</div>
+                <div class="col-span-3 hidden md:block border-r-2 border-ink">Sector</div>
+                <div class="col-span-3 md:col-span-2 border-r-2 border-ink">Size</div>
+                <div class="col-span-2 md:col-span-1 text-right">Dat</div>
+            </div>
+
+            <!-- List Internal Scroll Container -->
+            <div class="flex flex-col flex-grow bg-offwhite min-h-[500px] relative">
+                
+                <!-- ROW 1 -->
+                <a href="#proj01" class="dir-row group grid grid-cols-12 gap-4 px-6 py-5 border-b-2 border-ink hover:bg-ink hover:text-offwhite cursor-pointer transition-colors relative overflow-hidden items-center" rel="nofollow">
+                    <div class="col-span-1 font-bold text-sysdark group-hover:text-sysgray">01.</div>
+                    <div class="col-span-6 md:col-span-5 flex flex-col z-10">
+                        <span class="font-sans font-bold text-2xl md:text-3xl leading-none row-text transition-transform duration-300 uppercase">Neural.Arch</span>
+                        <span class="text-xs mt-1 opacity-70 row-text transition-transform duration-300 delay-75">AI Processing Facility</span>
+                    </div>
+                    <div class="col-span-3 hidden md:block text-xs uppercase z-10">Machine Learning / UX</div>
+                    <div class="col-span-3 md:col-span-2 text-xs z-10">2.4 TB</div>
+                    <div class="col-span-2 md:col-span-1 text-xs text-right z-10">1988</div>
+                    <!-- Hover Marquee Background -->
+                    <div class="row-marquee absolute inset-y-0 left-0 w-0 bg-ink overflow-hidden opacity-0 transition-all duration-500 ease-out z-0 border-r-4 border-offwhite flex items-center pointer-events-none">
+                        <div class="animate-marquee font-bold text-6xl text-offwhite opacity-10 whitespace-nowrap">
+                            NEURAL.ARCH // INITIATE SEQUENCE // ACCESS GRANTED // NEURAL.ARCH // INITIATE SEQUENCE // 
+                        </div>
+                    </div>
+                </a>
+
+                <!-- ROW 2 -->
+                <a href="#proj02" class="dir-row group grid grid-cols-12 gap-4 px-6 py-5 border-b-2 border-ink hover:bg-ink hover:text-offwhite cursor-pointer transition-colors relative overflow-hidden items-center" rel="nofollow">
+                    <div class="col-span-1 font-bold text-sysdark group-hover:text-sysgray">02.</div>
+                    <div class="col-span-6 md:col-span-5 flex flex-col z-10">
+                        <span class="font-sans font-bold text-2xl md:text-3xl leading-none row-text transition-transform duration-300 uppercase">Void_Protocol</span>
+                        <span class="text-xs mt-1 opacity-70 row-text transition-transform duration-300 delay-75">Secure Communications</span>
+                    </div>
+                    <div class="col-span-3 hidden md:block text-xs uppercase z-10">FinTech / Web3</div>
+                    <div class="col-span-3 md:col-span-2 text-xs z-10">804 MB</div>
+                    <div class="col-span-2 md:col-span-1 text-xs text-right z-10">1991</div>
+                    <!-- Hover Marquee Background -->
+                    <div class="row-marquee absolute inset-y-0 left-0 w-0 bg-ink overflow-hidden opacity-0 transition-all duration-500 ease-out z-0 border-r-4 border-offwhite flex items-center pointer-events-none">
+                        <div class="animate-marquee font-bold text-6xl text-offwhite opacity-10 whitespace-nowrap">
+                            VOID_PROTOCOL // SYSTEM ENCRYPTED // OVERRIDE // VOID_PROTOCOL // SYSTEM ENCRYPTED //
+                        </div>
+                    </div>
+                </a>
+
+                <!-- ROW 3 -->
+                <a href="#proj03" class="dir-row group grid grid-cols-12 gap-4 px-6 py-5 border-b-2 border-ink hover:bg-ink hover:text-offwhite cursor-pointer transition-colors relative overflow-hidden items-center bg-sysgray/30" rel="nofollow">
+                    <div class="col-span-1 font-bold text-sysdark group-hover:text-sysgray">03.</div>
+                    <div class="col-span-6 md:col-span-5 flex flex-col z-10">
+                        <span class="font-sans font-bold text-2xl md:text-3xl leading-none row-text transition-transform duration-300 uppercase flex items-center gap-3">
+                            Monolith.EXE
+                            <span class="text-[9px] bg-ink text-offwhite px-2 py-0.5 rounded-sm">AWARDED</span>
+                        </span>
+                        <span class="text-xs mt-1 opacity-70 row-text transition-transform duration-300 delay-75">Global E-Commerce Engine</span>
+                    </div>
+                    <div class="col-span-3 hidden md:block text-xs uppercase z-10">Retail / Logistics</div>
+                    <div class="col-span-3 md:col-span-2 text-xs z-10">1.2 GB</div>
+                    <div class="col-span-2 md:col-span-1 text-xs text-right z-10">1995</div>
+                    <!-- Hover Marquee Background -->
+                    <div class="row-marquee absolute inset-y-0 left-0 w-0 bg-ink overflow-hidden opacity-0 transition-all duration-500 ease-out z-0 border-r-4 border-sysgray flex items-center pointer-events-none">
+                        <div class="animate-marquee font-bold text-6xl text-offwhite opacity-10 whitespace-nowrap">
+                            MONOLITH.EXE // EXECUTE COMMERCE // ROUTING DATA // MONOLITH.EXE // EXECUTE COMMERCE //
+                        </div>
+                    </div>
+                </a>
+
+                <!-- ROW 4 -->
+                <a href="#proj04" class="dir-row group grid grid-cols-12 gap-4 px-6 py-5 border-b-2 border-ink hover:bg-ink hover:text-offwhite cursor-pointer transition-colors relative overflow-hidden items-center" rel="nofollow">
+                    <div class="col-span-1 font-bold text-sysdark group-hover:text-sysgray">04.</div>
+                    <div class="col-span-6 md:col-span-5 flex flex-col z-10">
+                        <span class="font-sans font-bold text-2xl md:text-3xl leading-none row-text transition-transform duration-300 uppercase">Kinetic_Grid</span>
+                        <span class="text-xs mt-1 opacity-70 row-text transition-transform duration-300 delay-75">Creative Portfolio</span>
+                    </div>
+                    <div class="col-span-3 hidden md:block text-xs uppercase z-10">Agency / Motion</div>
+                    <div class="col-span-3 md:col-span-2 text-xs z-10">450 MB</div>
+                    <div class="col-span-2 md:col-span-1 text-xs text-right z-10">1998</div>
+                    <!-- Hover Marquee Background -->
+                    <div class="row-marquee absolute inset-y-0 left-0 w-0 bg-ink overflow-hidden opacity-0 transition-all duration-500 ease-out z-0 border-r-4 border-offwhite flex items-center pointer-events-none">
+                        <div class="animate-marquee font-bold text-6xl text-offwhite opacity-10 whitespace-nowrap">
+                            KINETIC_GRID // RENDER FRAME // KINETIC_GRID // RENDER FRAME // KINETIC_GRID //
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- ROW 5 -->
+                <a href="#proj05" class="dir-row group grid grid-cols-12 gap-4 px-6 py-5 hover:bg-ink hover:text-offwhite cursor-pointer transition-colors relative overflow-hidden items-center" rel="nofollow">
+                    <div class="col-span-1 font-bold text-sysdark group-hover:text-sysgray">05.</div>
+                    <div class="col-span-6 md:col-span-5 flex flex-col z-10">
+                        <span class="font-sans font-bold text-2xl md:text-3xl leading-none row-text transition-transform duration-300 uppercase">Syntax.Lab</span>
+                        <span class="text-xs mt-1 opacity-70 row-text transition-transform duration-300 delay-75">Type Foundry Platform</span>
+                    </div>
+                    <div class="col-span-3 hidden md:block text-xs uppercase z-10">Editorial / Type</div>
+                    <div class="col-span-3 md:col-span-2 text-xs z-10">120 MB</div>
+                    <div class="col-span-2 md:col-span-1 text-xs text-right z-10">2001</div>
+                    <!-- Hover Marquee Background -->
+                    <div class="row-marquee absolute inset-y-0 left-0 w-0 bg-ink overflow-hidden opacity-0 transition-all duration-500 ease-out z-0 border-r-4 border-offwhite flex items-center pointer-events-none">
+                        <div class="animate-marquee font-bold text-6xl text-offwhite opacity-10 whitespace-nowrap">
+                            SYNTAX.LAB // PARSING GLYPHS // SYNTAX.LAB // PARSING GLYPHS // SYNTAX.LAB //
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Footer Stats -->
+                <div class="mt-auto border-t-2 border-ink p-2 flex justify-between items-center text-[10px] bg-offwhite">
+                    <div class="flex items-center gap-4">
+                        <span><i class="ph-fill ph-database mr-1"></i> DISK SPACE: 94% FULL</span>
+                        <span class="hidden sm:inline-block border-l-2 border-ink pl-4">34,098 BYTES AVAILABLE</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        READ ONLY <span class="w-2 h-2 bg-ink rounded-full cursor-blink"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WINDOW 2: QUICK PREVIEW (INSPECTOR) -->
+        <aside class="w-full xl:w-1/3 bg-offwhite border-2 border-ink rounded-md shadow-hard flex flex-col sticky top-24 z-30 transition-transform hover:-translate-y-1 hover:-translate-x-1 hover:shadow-hard-hover duration-300">
+            
+            <!-- Window Title Bar -->
+            <div class="h-8 border-b-2 border-ink flex items-center px-2 justify-between bg-offwhite rounded-t-sm">
+                <div class="flex items-center gap-1.5 ml-1">
+                    <div class="w-3 h-3 border-2 border-ink active:bg-ink"></div>
+                </div>
+                <div class="flex-grow flex items-center justify-center relative mx-4 h-full">
+                    <div class="absolute inset-0 title-stripes opacity-40"></div>
+                    <div class="bg-offwhite px-4 relative z-10 font-bold text-xs tracking-widest text-center">
+                        <i class="ph-fill ph-aperture mr-1"></i> INSPECTOR.EXE
+                    </div>
+                </div>
+                <div class="w-4 flex justify-end"></div>
+            </div>
+
+            <!-- Preview Content -->
+            <div class="p-4 flex flex-col gap-4">
+                
+                <!-- Image Container with retro screen bezel effect -->
+                <div class="border-2 border-ink p-2 bg-sysgray rounded-sm relative overflow-hidden group/image cursor-crosshair">
+                    <div class="absolute inset-0 bg-ink rounded-sm z-0"></div> <!-- Screen background -->
+                    <div class="relative z-10 overflow-hidden border-2 border-ink rounded-sm aspect-square bg-[#D4D4D2] flex items-center justify-center">
+                        
+                        <!-- Default/Scanline Overlay -->
+                        <div class="absolute inset-0 z-20 pointer-events-none mix-blend-overlay opacity-30 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNCIgaGVpZ2h0PSI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSI0IiBoZWlnaHQ9IjIiIGZpbGw9IiMwNTA1MDUiLz48L3N2Zz4=')]"></div>
+
+                        <!-- Main Preview Image -->
+                        <img 
+                            src="https://images.unsplash.com/photo-1760340769739-653d00200baf?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDI3fHx8ZW58MHx8fHx8" 
+                            alt="Brutalist structural concrete abstract showcasing severe angles and sharp shadows, echoing the robust architecture of vintage computer mainframes." 
+                            class="object-cover w-full h-full image-mainframe group-hover/image:scale-105 duration-700"
+                        />
+                        
+                        <!-- Corner Crosshairs -->
+                        <div class="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-offwhite z-30 mix-blend-difference"></div>
+                        <div class="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-offwhite z-30 mix-blend-difference"></div>
+                        <div class="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-offwhite z-30 mix-blend-difference"></div>
+                        <div class="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-offwhite z-30 mix-blend-difference"></div>
+                    </div>
+                </div>
+
+                <!-- Meta Data Table -->
+                <div class="border-2 border-ink">
+                    <div class="border-b-2 border-ink px-3 py-1 bg-ink text-offwhite text-xs font-bold uppercase tracking-widest">
+                        Metadata // Properties
+                    </div>
+                    <div class="flex flex-col p-3 gap-2 bg-offwhite text-xs">
+                        <div class="flex justify-between border-b border-sysgray pb-1">
+                            <span class="opacity-50">FILE_NAME:</span>
+                            <span class="font-bold">Neural.Arch.sys</span>
+                        </div>
+                        <div class="flex justify-between border-b border-sysgray pb-1">
+                            <span class="opacity-50">RESOLUTION:</span>
+                            <span class="font-bold">4096 x 2160 px</span>
+                        </div>
+                        <div class="flex justify-between border-b border-sysgray pb-1">
+                            <span class="opacity-50">COLOR_DEPTH:</span>
+                            <span class="font-bold">1-Bit Monochrome</span>
+                        </div>
+                        <div class="flex justify-between pb-1">
+                            <span class="opacity-50">STATUS:</span>
+                            <span class="font-bold text-ink flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 bg-ink rounded-full cursor-blink"></span> ONLINE
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Button -->
+                <button class="w-full bg-offwhite border-2 border-ink py-4 font-sans font-bold text-xl uppercase tracking-widest hover:bg-ink hover:text-offwhite hover:shadow-hard-sm transition-all active:translate-y-1 active:shadow-none glitch-hover relative overflow-hidden group/btn">
+                    <span class="relative z-10 flex items-center justify-center gap-2">
+                        <i class="ph-bold ph-terminal-window group-hover/btn:animate-pulse"></i>
+                        Execute View
+                    </span>
+                    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSI4IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSI0IiBoZWlnaHQ9IjQiIGZpbGw9IiNmNGY0ZjAiIG9wYWNpdHk9IjAuMSIvPjwvc3ZnPg==')] z-0"></div>
+                </button>
+
+            </div>
+        </aside>
+
+    </main>
+
+    <!-- Bottom Status Bar -->
+    <div class="fixed bottom-0 left-0 w-full h-8 bg-ink text-offwhite z-50 flex items-center px-4 text-xs font-mono font-bold tracking-widest uppercase">
+        <div class="flex-grow flex items-center gap-4 border-r-2 border-sysdark pr-4 h-full">
+            <i class="ph-fill ph-warning-octagon text-sysgray cursor-blink"></i>
+            <span>AWAITING COMMEND INPUT...</span>
+        </div>
+        <div class="pl-4 h-full flex items-center opacity-70">
+            v 1.0.84 // SYSTEM_OK
+        </div>
+    </div>
+
+    <!-- Clock Script -->
+    <script>
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // 0 should be 12
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById('sys-clock').innerText = hours + ':' + minutes + ' ' + ampm;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Manager // Silk Commerce</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'retro-bg': '#E0DBD3',
+            'retro-window': '#F5F3EF',
+            'retro-dark': '#111111',
+            'sysBeige': '#EBE9E4',
+          },
+          fontFamily: {
+            'mono': ['"Space Mono"', 'monospace'],
+            'pixel': ['"VT323"', 'monospace'],
+          },
+          boxShadow: {
+            'hard': '4px 4px 0px 0px #111111',
+            'hard-lg': '8px 8px 0px 0px #111111',
+            'hard-hover': '2px 2px 0px 0px #111111',
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #E0DBD3;
+      color: #111111;
+      background-image: radial-gradient(#d1ced1 1px, transparent 1px);
+      background-size: 16px 16px;
+    }
+  </style>
+</head>
+<body class="font-mono min-h-screen flex flex-col antialiased pb-20">
+
+  <header class="fixed top-0 left-0 w-full bg-retro-window border-b-2 border-retro-dark z-50 px-4 py-1 flex justify-between items-center text-sm font-bold shadow-sm h-10">
+    <div class="flex items-center gap-6 h-full">
+      <a href="../index.html" class="flex items-center gap-2 hover:bg-retro-dark hover:text-white px-2 h-full transition-colors">
+        <i class="fa-solid fa-apple-whole"></i>
+        <span class="hidden sm:inline">SYSTEM</span>
+      </a>
+      <nav class="flex h-full">
+        <a href="../index.html" class="px-3 h-full flex items-center hover:bg-retro-dark hover:text-white transition-colors border-l-2 border-retro-dark text-sm uppercase">Home</a>
+        <a href="../work.html" class="nav-active px-3 h-full flex items-center border-l-2 border-retro-dark text-sm uppercase bg-retro-dark text-white">Work</a>
+        <a href="../projects.html" class="px-3 h-full flex items-center hover:bg-retro-dark hover:text-white transition-colors border-l-2 border-r-2 border-retro-dark text-sm uppercase">Projects</a>
+      </nav>
+    </div>
+    <div class="font-pixel text-lg hidden md:block">
+      TIME: <span id="clock">00:00:00</span>
+    </div>
+  </header>
+
+  <main class="w-full max-w-7xl mx-auto pt-24 px-4 md:px-8 flex-grow">
+
+    <div class="flex justify-between items-end mb-6">
+      <a href="../work.html" class="group flex items-center gap-2 bg-retro-window border-2 border-retro-dark px-4 py-2 shadow-hard hover:translate-y-[2px] hover:translate-x-[2px] hover:shadow-hard-hover transition-all active:shadow-none active:translate-y-[4px] active:translate-x-[4px] rounded-sm" rel="nofollow">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" class="group-hover:-translate-x-1 transition-transform">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        <span class="font-bold text-sm tracking-widest">DRIVE_C:\WORK</span>
+      </a>
+      <div class="text-xs uppercase border-2 border-retro-dark bg-retro-window px-3 py-1 font-bold">
+        Read-Only Document
+      </div>
+    </div>
+
+    <article class="bg-retro-window border-2 border-retro-dark shadow-hard-lg rounded-sm flex flex-col overflow-hidden">
+
+      <div class="border-b-2 border-retro-dark p-1 flex items-center justify-between bg-retro-window relative">
+        <div class="w-5 h-5 border-2 border-retro-dark ml-2 bg-retro-window hover:bg-retro-dark cursor-pointer z-10"></div>
+        <div class="absolute inset-x-12 inset-y-1 flex items-center justify-center pointer-events-none">
+          <div class="titlebar-stripes absolute inset-0"></div>
+          <div class="bg-retro-window border-2 border-retro-dark px-4 py-0.5 z-10">
+            <h1 class="font-black text-xs md:text-sm tracking-widest uppercase">DOC_ID: SILK_COMMERCE_PROJECT_MANAGER.TXT</h1>
+          </div>
+        </div>
+        <div class="w-5 h-5 flex flex-col justify-between border-2 border-retro-dark mr-2 cursor-pointer z-10 p-[2px] bg-retro-window hover:bg-gray-200">
+          <div class="w-full h-[2px] bg-retro-dark"></div>
+        </div>
+      </div>
+
+      <div class="flex flex-col lg:flex-row h-full">
+        <aside class="w-full lg:w-[300px] border-b-2 lg:border-b-0 lg:border-r-2 border-retro-dark flex flex-col shrink-0">
+          <div class="p-4 border-b-2 border-retro-dark bg-sysBeige">
+            <div class="border-2 border-retro-dark bg-retro-window aspect-square relative dither-img-wrapper overflow-hidden p-2 flex items-center justify-center bg-gray-200">
+              <div class="w-full h-full flex items-center justify-center text-retro-dark text-6xl"><i class="fa-solid fa-tasks"></i></div>
+            </div>
+            <div class="mt-2 text-center font-bold text-xs uppercase tracking-widest border-t-2 border-retro-dark pt-2">
+              [ FIG 1.0 - SCHEMATIC ]
+            </div>
+            <div class="mt-2 text-center">
+              <span class="text-[9px] bg-retro-dark text-retro-window px-2 py-0.5 rounded-sm font-bold">BIGCOMMERCE B2B EXCELLENT AWARD 2023, 2024</span>
+            </div>
+          </div>
+          <div class="p-6 flex-grow flex flex-col gap-8">
+            <div>
+              <h3 class="font-black text-sm uppercase border-b-2 border-retro-dark pb-1 mb-3 bg-retro-dark text-retro-window px-2 inline-block">CLIENT_DATA</h3>
+              <ul class="text-sm space-y-2">
+                <li class="flex items-start"><span class="mr-2">&gt;</span><span><strong>NAME:</strong> Silk Commerce</span></li>
+                <li class="flex items-start"><span class="mr-2">&gt;</span><span><strong>ROLE:</strong> Project Manager</span></li>
+                <li class="flex items-start"><span class="mr-2">&gt;</span><span><strong>DATES:</strong> Jul 2022 – Feb 2025</span></li>
+                <li class="flex items-start"><span class="mr-2">&gt;</span><span><strong>LOCATION:</strong> Irvine, CA</span></li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-black text-sm uppercase border-b-2 border-retro-dark pb-1 mb-3 bg-retro-dark text-retro-window px-2 inline-block">EXECUTABLES</h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="border border-retro-dark px-2 py-1 text-xs font-bold bg-retro-window shadow-[2px_2px_0px_#111]">BIGCOMMERCE</span>
+                <span class="border border-retro-dark px-2 py-1 text-xs font-bold bg-retro-window shadow-[2px_2px_0px_#111]">AGILE</span>
+                <span class="border border-retro-dark px-2 py-1 text-xs font-bold bg-retro-window shadow-[2px_2px_0px_#111]">JIRA</span>
+                <span class="border border-retro-dark px-2 py-1 text-xs font-bold bg-retro-window shadow-[2px_2px_0px_#111]">B2B</span>
+              </div>
+            </div>
+            <div>
+              <h3 class="font-black text-sm uppercase border-b-2 border-retro-dark pb-1 mb-3 bg-retro-dark text-retro-window px-2 inline-block">CONTRIBUTION</h3>
+              <ul class="text-sm space-y-1">
+                <li>[x] Roadmap &amp; scope</li>
+                <li>[x] Agile cross-functional teams</li>
+                <li>[x] Stakeholder relationship</li>
+                <li>[x] B2B eCommerce solutions</li>
+                <li>[x] Task tracking &amp; transparency</li>
+              </ul>
+            </div>
+          </div>
+        </aside>
+
+        <section class="flex-grow flex flex-col h-[80vh] lg:h-auto overflow-hidden">
+          <div class="flex-grow overflow-y-auto p-6 md:p-12 mac-scrollbar relative">
+            <header class="mb-16 border-b-4 border-retro-dark pb-10">
+              <div class="inline-block border-2 border-retro-dark px-3 py-1 text-xs font-bold uppercase mb-4 shadow-hard">Status: Completed · Awarded</div>
+              <h1 class="font-black text-5xl md:text-7xl uppercase leading-[0.9] tracking-tighter mb-6">
+                Project <br>
+                <span class="text-transparent" style="-webkit-text-stroke: 2px #111111;">Manager.</span>
+              </h1>
+              <p class="text-lg md:text-xl font-bold max-w-2xl leading-relaxed bg-sysBeige p-4 border-l-4 border-retro-dark">
+                Silk Commerce · Irvine, CA · Jul 2022 – Feb 2025. Oversee project roadmap, development scope, and customer satisfaction for enterprise eCommerce projects. BigCommerce B2B Excellent Award Winner 2023, 2024.
+              </p>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+              <div class="md:col-span-4 flex flex-col gap-8">
+                <div class="border-2 border-retro-dark bg-retro-dark text-retro-window p-4 shadow-[4px_4px_0px_#bbb]">
+                  <div class="border-b border-gray-600 pb-2 mb-2 text-xs font-bold tracking-widest uppercase flex justify-between">
+                    <span>SYSTEM.LOG</span>
+                    <span>[ON]</span>
+                  </div>
+                  <div class="text-xs space-y-1 opacity-80 font-mono">
+                    <p>&gt; INIT SILK_PM</p>
+                    <p>&gt; AGILE SPRINTS... <span class="text-green-400">OK</span></p>
+                    <p>&gt; STAKEHOLDER MAP... <span class="text-green-400">OK</span></p>
+                    <p>&gt; B2B AWARD 2023 2024 <span class="text-green-400">OK</span></p>
+                  </div>
+                </div>
+              </div>
+              <div class="md:col-span-8 space-y-8 text-base">
+                <div>
+                  <h2 class="font-black text-2xl uppercase border-b-2 border-retro-dark inline-block mb-4">Delivery &amp; Scope</h2>
+                  <p class="leading-relaxed mb-4">
+                    Oversee project roadmap, development scope and customer satisfaction of enterprise-level eCommerce projects. Implement agile methodology for cross-functional teams and develop and maintain a strong relationship with key stakeholders to ensure successful project delivery.
+                  </p>
+                  <p class="leading-relaxed">
+                    Design solutions tailored to operations in the B2B eCommerce industry. Utilize industry-standard task tracking and timeline tools to maintain project status transparency.
+                  </p>
+                </div>
+                <div>
+                  <h2 class="font-black text-2xl uppercase border-b-2 border-retro-dark inline-block mb-4">Recognition</h2>
+                  <p class="leading-relaxed">
+                    BigCommerce B2B Excellent Award Winner 2023, 2024—recognizing delivery excellence and impact in the B2B eCommerce space.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="h-20"></div>
+          </div>
+          <div class="border-t-2 border-retro-dark bg-retro-window px-4 py-1 flex justify-between text-xs font-bold uppercase">
+            <span>0 CHARACTERS SELECTED</span>
+            <span>PAGE 1 OF 1</span>
+          </div>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <script src="../js/main.js"></script>
+  <script>
+    (function() {
+      var el = document.getElementById('clock');
+      if (el) {
+        function updateClock() {
+          var now = new Date();
+          el.textContent = now.toLocaleTimeString('en-US', { hour12: false });
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+      }
+    })();
+  </script>
+</body>
+</html>

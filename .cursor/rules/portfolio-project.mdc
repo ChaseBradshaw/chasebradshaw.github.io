@@ -1,0 +1,40 @@
+---
+description: Portfolio project context and GitHub Pages conventions
+alwaysApply: true
+---
+
+# Portfolio Website (GitHub Pages)
+
+## Project purpose
+This repo is a **static portfolio website** hosted on **GitHub Pages**. Keep the site static and deployable from the repo root (or from the `docs/` folder if configured in repo settings).
+
+## Directory structure
+- **Root**: `index.html` (homepage), `work.html` (Work listing), `projects.html` (Projects listing). GitHub Pages serves from repo root or `/docs`.
+- **work/**: Career/professional detail pages (e.g. `work/silk-senior-strategist.html`, `work/silk-project-manager.html`, `work/transmit.html`). Back links go to `../work.html`. Content is driven by [Resume 1_26_26.docx.txt](Resume 1_26_26.docx.txt).
+- **projects/**: Side-project detail pages (e.g. `projects/sustainable-goods.html`). Back links go to `../projects.html`.
+- **css/**: Shared styles in `css/main.css` (design tokens, scrollbar, marquee, nav active state, listing/detail utilities). Tailwind CDN is used inline per page.
+- **js/**: `js/main.js` for shared behavior; clock is also inlined per page.
+- **assets/images/**: Images and icons. Use relative paths from root (e.g. `assets/images/photo.jpg`). From `work/` or `projects/` use `../assets/images/`.
+
+## Navigation (must be consistent)
+- **Top-level nav on every page**: **Home** | **Work** | **Projects**.
+  - Home → `index.html` (root) or `../index.html` (from work/ or projects/).
+  - Work → `work.html` or `../work.html`.
+  - Projects → `projects.html` or `../projects.html`.
+- Mark the current section with class `nav-active` (inverted style) so the active tab is clear.
+- Shared header and footer (fixed top bar with SYSTEM + nav + clock; fixed bottom status bar) must match across index, work.html, projects.html, and all detail pages.
+
+## Design system
+- **Unified tokens**: retro-bg, retro-window, retro-dark, retro-gray (see Tailwind config in each page and `:root` in main.css). Keep header, window chrome, buttons, and shadows consistent.
+- **Tailwind**: Use Tailwind CDN with the same theme extend (colors, fonts, boxShadow) on all pages so the look stays unified.
+
+## Conventions
+- Use **relative paths** for all links, scripts, and images so the site works at `https://<username>.github.io/portfolio/` or custom domain.
+- Design is **retro/brutalist** (Space Mono, VT323, hard shadows, 2px borders). Preserve this when adding or editing pages.
+- Keep **accessibility** in mind: semantic HTML, `lang` on `<html>`, alt text for images, and keyboard-friendly interactions.
+- Design should be **responsive** (viewport meta, flexible layout).
+
+## GitHub Pages
+- **Settings → Pages** → Source: deploy from branch (e.g. `main`), folder **/ (root)**.
+- Site URL: `https://<username>.github.io/portfolio/`.
+- No build step; all HTML/CSS/JS are static.

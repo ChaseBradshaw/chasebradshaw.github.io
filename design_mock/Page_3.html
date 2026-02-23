@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYS.DOC // OVERSEER PROJECT</title>
+    <!-- 
+    AESTHETIC DNA:
+    Trend Core: 1984 Early GUI / Desktop Metaphor / Brutalist Terminal
+    Spice: System Beige, Hard Borders, Dithered Graphics, Bureaucratic Typography
+    Palette: "System Beige" (#EBE9E4), "Paper White" (#FAFAFA), "Ink Black" (#111111)
+    -->
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@700;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sysBeige: '#EBE9E4',
+                        sysWhite: '#FAFAFA',
+                        sysBlack: '#111111',
+                    },
+                    fontFamily: {
+                        mono: ['"IBM Plex Mono"', 'monospace'],
+                        sans: ['"IBM Plex Sans"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'sys': '4px 4px 0px 0px #111111',
+                        'sys-lg': '8px 8px 0px 0px #111111',
+                        'sys-hover': '2px 2px 0px 0px #111111',
+                    },
+                    backgroundImage: {
+                        'scanline': 'linear-gradient(transparent 50%, rgba(0, 0, 0, 0.05) 50%)',
+                        'window-stripe': 'repeating-linear-gradient(0deg, transparent, transparent 1px, #111 1px, #111 2px)',
+                        'checker': 'repeating-linear-gradient(45deg, #bbb 25%, transparent 25%, transparent 75%, #bbb 75%, #bbb), repeating-linear-gradient(45deg, #bbb 25%, transparent 25%, transparent 75%, #bbb 75%, #bbb)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* CSS Reset & Global rules */
+        body {
+            background-color: #EBE9E4;
+            color: #111111;
+            /* Subtle dot pattern for the "desktop" background */
+            background-image: radial-gradient(#d1ced1 1px, transparent 1px);
+            background-size: 16px 16px;
+        }
+
+        ::selection {
+            background-color: #111111;
+            color: #FAFAFA;
+        }
+
+        /* 1980s Window Striped Titlebar */
+        .titlebar-stripes {
+            background-image: repeating-linear-gradient(to bottom, transparent, transparent 2px, #111 2px, #111 4px);
+            height: 18px;
+            width: 100%;
+        }
+
+        /* Macintosh style scrollbar override for specific areas */
+        .mac-scrollbar::-webkit-scrollbar {
+            width: 16px;
+            height: 16px;
+            border-left: 2px solid #111;
+        }
+        
+        .mac-scrollbar::-webkit-scrollbar-track {
+            background-color: #FAFAFA;
+            background-image: radial-gradient(circle, #111 1px, transparent 1px);
+            background-size: 4px 4px;
+            border-left: 2px solid #111;
+        }
+        
+        .mac-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #FAFAFA;
+            border: 2px solid #111;
+        }
+        
+        .mac-scrollbar::-webkit-scrollbar-button:vertical:start:decrement {
+            background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><path d='M8 4l4 8H4z' fill='%23111'/></svg>") #FAFAFA no-repeat center center;
+            border-bottom: 2px solid #111;
+            height: 16px;
+        }
+        
+        .mac-scrollbar::-webkit-scrollbar-button:vertical:end:increment {
+            background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><path d='M8 12L4 4h8z' fill='%23111'/></svg>") #FAFAFA no-repeat center center;
+            border-top: 2px solid #111;
+            height: 16px;
+        }
+
+        /* Dithered / B&W Image effect */
+        .dither-img {
+            filter: grayscale(100%) contrast(120%) brightness(90%);
+            position: relative;
+        }
+        
+        .dither-img-wrapper::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(#000 1px, transparent 1px);
+            background-size: 3px 3px;
+            mix-blend-mode: overlay;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* Marching ants border effect for focus areas */
+        .marching-ants {
+            background-image: linear-gradient(to right, #111 50%, transparent 50%), linear-gradient(to right, #111 50%, transparent 50%), linear-gradient(to bottom, #111 50%, transparent 50%), linear-gradient(to bottom, #111 50%, transparent 50%);
+            background-size: 10px 2px, 10px 2px, 2px 10px, 2px 10px;
+            background-position: 0 0, 0 100%, 0 0, 100% 0;
+            background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+            animation: march 1s linear infinite;
+        }
+
+        @keyframes march {
+            0% { background-position: 0 0, 0 100%, 0 0, 100% 0; }
+            100% { background-position: 10px 0, -10px 100%, 0 -10px, 100% 10px; }
+        }
+    </style>
+</head>
+<body class="font-mono min-h-screen flex flex-col antialiased pb-20">
+
+    <!-- OS Global Menu Bar -->
+    <header class="fixed top-0 left-0 w-full bg-sysWhite border-b-2 border-sysBlack z-50 px-4 py-1 flex justify-between items-center text-sm font-bold shadow-sm">
+        <div class="flex items-center gap-6">
+            <span class="cursor-pointer hover:bg-sysBlack hover:text-sysWhite px-2 transition-none"> SYSTEM</span>
+            <span class="cursor-pointer hover:bg-sysBlack hover:text-sysWhite px-2 transition-none">FILE</span>
+            <span class="cursor-pointer hover:bg-sysBlack hover:text-sysWhite px-2 transition-none">EDIT</span>
+            <span class="cursor-pointer hover:bg-sysBlack hover:text-sysWhite px-2 transition-none">VIEW</span>
+        </div>
+        <div>
+            <span class="opacity-50">MEM: 640K OK</span>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="w-full max-w-7xl mx-auto pt-24 px-4 md:px-8 flex-grow">
+        
+        <!-- Navigation / Top actions -->
+        <div class="flex justify-between items-end mb-6">
+            <!-- Back Button styled as a retro UI element -->
+            <a href="#" class="group flex items-center gap-2 bg-sysWhite border-2 border-sysBlack px-4 py-2 shadow-sys hover:translate-y-[2px] hover:translate-x-[2px] hover:shadow-sys-hover transition-all active:shadow-none active:translate-y-[4px] active:translate-x-[4px] rounded-sm" rel="nofollow">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" class="group-hover:-translate-x-1 transition-transform">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                <span class="font-bold text-sm tracking-widest">DRIVE_C:\PROJECTS</span>
+            </a>
+            
+            <div class="text-xs uppercase border-2 border-sysBlack bg-sysWhite px-3 py-1 font-bold">
+                Read-Only Document
+            </div>
+        </div>
+
+        <!-- THE MAIN WINDOW (Project Container) -->
+        <article class="bg-sysWhite border-2 border-sysBlack shadow-sys-lg rounded-sm flex flex-col overflow-hidden">
+            
+            <!-- Window Title Bar -->
+            <div class="border-b-2 border-sysBlack p-1 flex items-center justify-between bg-sysWhite relative">
+                <!-- Close Button -->
+                <div class="w-5 h-5 border-2 border-sysBlack ml-2 bg-sysWhite hover:bg-sysBlack cursor-pointer z-10"></div>
+                
+                <!-- Stripes & Title -->
+                <div class="absolute inset-x-12 inset-y-1 flex items-center justify-center pointer-events-none">
+                    <div class="titlebar-stripes absolute inset-0"></div>
+                    <div class="bg-sysWhite border-2 border-sysBlack px-4 py-0.5 z-10">
+                        <h1 class="font-sans font-black text-xs md:text-sm tracking-widest uppercase">DOC_ID: OVERSEER_MATRIX.TXT</h1>
+                    </div>
+                </div>
+
+                <!-- Maximize Button -->
+                <div class="w-5 h-5 flex flex-col justify-between border-2 border-sysBlack mr-2 cursor-pointer z-10 p-[2px] bg-sysWhite hover:bg-gray-200">
+                    <div class="w-full h-[2px] bg-sysBlack"></div>
+                </div>
+            </div>
+
+            <!-- Content Area (Grid split) -->
+            <div class="flex flex-col lg:flex-row h-full">
+                
+                <!-- Left Sidebar: Project Inspector/Metadata -->
+                <aside class="w-full lg:w-[300px] border-b-2 lg:border-b-0 lg:border-r-2 border-sysBlack flex flex-col shrink-0">
+                    
+                    <!-- Cover/Thumbnail slot in sidebar -->
+                    <div class="p-4 border-b-2 border-sysBlack bg-sysBeige">
+                        <div class="border-2 border-sysBlack bg-sysWhite aspect-square relative dither-img-wrapper overflow-hidden p-2 flex items-center justify-center bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjRkFGQUZBIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiNDQ0MiPjwvcmVjdD4KPC9zdmc+')]">
+                            <!-- Using an abstract tech logo or symbol image -->
+                            <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&q=80&w=400&h=400" alt="Abstract wireframe sphere representing network topology" class="w-full h-full object-cover dither-img border-2 border-sysBlack">
+                        </div>
+                        <div class="mt-2 text-center font-bold text-xs uppercase tracking-widest border-t-2 border-sysBlack pt-2">
+                            [ FIG 1.0 - SCHEMATIC ]
+                        </div>
+                    </div>
+
+                    <!-- Metadata lists -->
+                    <div class="p-6 flex-grow flex flex-col gap-8">
+                        
+                        <div>
+                            <h3 class="font-sans font-black text-sm uppercase border-b-2 border-sysBlack pb-1 mb-3 bg-sysBlack text-sysWhite px-2 inline-block">CLIENT_DATA</h3>
+                            <ul class="text-sm space-y-2">
+                                <li class="flex items-start">
+                                    <span class="mr-2">&gt;</span>
+                                    <span><strong>NAME:</strong> OmniCorp Heavy Industries</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="mr-2">&gt;</span>
+                                    <span><strong>YEAR:</strong> 198X.24</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="mr-2">&gt;</span>
+                                    <span><strong>SECTOR:</strong> Planetary Logistics</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 class="font-sans font-black text-sm uppercase border-b-2 border-sysBlack pb-1 mb-3 bg-sysBlack text-sysWhite px-2 inline-block">EXECUTABLES</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="border border-sysBlack px-2 py-1 text-xs font-bold bg-sysWhite shadow-[2px_2px_0px_#111]">VUE.JS</span>
+                                <span class="border border-sysBlack px-2 py-1 text-xs font-bold bg-sysWhite shadow-[2px_2px_0px_#111]">WEBGL</span>
+                                <span class="border border-sysBlack px-2 py-1 text-xs font-bold bg-sysWhite shadow-[2px_2px_0px_#111]">T-WIND</span>
+                                <span class="border border-sysBlack px-2 py-1 text-xs font-bold bg-sysWhite shadow-[2px_2px_0px_#111]">GLSL</span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="font-sans font-black text-sm uppercase border-b-2 border-sysBlack pb-1 mb-3 bg-sysBlack text-sysWhite px-2 inline-block">CONTRIBUTION</h3>
+                            <ul class="text-sm space-y-1">
+                                <li>[x] Core Architecture</li>
+                                <li>[x] Shader Programming</li>
+                                <li>[x] UI/UX Systems</li>
+                                <li>[ ] Backend Routing</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </aside>
+
+                <!-- Right Main Content: The Document -->
+                <section class="flex-grow flex flex-col h-[80vh] lg:h-auto overflow-hidden">
+                    
+                    <!-- Document Workspace with Custom Scrollbar -->
+                    <div class="flex-grow overflow-y-auto p-6 md:p-12 mac-scrollbar relative">
+                        
+                        <!-- Header Section -->
+                        <header class="mb-16 border-b-4 border-sysBlack pb-10">
+                            <div class="inline-block border-2 border-sysBlack px-3 py-1 text-xs font-bold uppercase mb-4 shadow-sys">Status: Deployed / Active</div>
+                            <h1 class="font-sans font-black text-5xl md:text-7xl uppercase leading-[0.9] tracking-tighter mb-6">
+                                The Overseer <br>
+                                <span class="text-transparent" style="-webkit-text-stroke: 2px #111111;">Protocol.</span>
+                            </h1>
+                            <p class="text-lg md:text-xl font-bold max-w-2xl leading-relaxed bg-sysBeige p-4 border-l-4 border-sysBlack">
+                                We were tasked with overhauling the central nervous system of a high-load logistics matrix. The legacy systems were rotting. We excised the bloat and installed a reactive, state-driven architecture capable of rendering global supply routes in visceral real-time.
+                            </p>
+                        </header>
+
+                        <!-- Main Image / Hero Shot -->
+                        <figure class="mb-16">
+                            <div class="border-2 border-sysBlack shadow-sys p-2 bg-sysWhite relative dither-img-wrapper">
+                                <!-- Bracket decor corners -->
+                                <div class="absolute top-0 left-0 w-4 h-4 border-t-4 border-l-4 border-sysBlack -translate-x-[6px] -translate-y-[6px]"></div>
+                                <div class="absolute top-0 right-0 w-4 h-4 border-t-4 border-r-4 border-sysBlack translate-x-[6px] -translate-y-[6px]"></div>
+                                <div class="absolute bottom-0 left-0 w-4 h-4 border-b-4 border-l-4 border-sysBlack -translate-x-[6px] translate-y-[6px]"></div>
+                                <div class="absolute bottom-0 right-0 w-4 h-4 border-b-4 border-r-4 border-sysBlack translate-x-[6px] translate-y-[6px]"></div>
+                                
+                                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1200&h=600" alt="Cybernetic data center interface and control panels in high contrast grayscale" class="w-full h-auto border-2 border-sysBlack dither-img object-cover md:h-[400px]">
+                            </div>
+                            <figcaption class="mt-4 flex justify-between items-center text-xs font-bold uppercase border-b-2 border-sysBlack pb-2">
+                                <span><span class="animate-pulse mr-2">●</span> FEED_01 // MAIN_DASHBOARD_VIEW</span>
+                                <span>RES: 1920x1080</span>
+                            </figcaption>
+                        </figure>
+
+                        <!-- Body Copy / Briefing -->
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+                            
+                            <div class="md:col-span-4 flex flex-col gap-8">
+                                <!-- Fake System Terminal box -->
+                                <div class="border-2 border-sysBlack bg-sysBlack text-sysWhite p-4 shadow-[4px_4px_0px_#bbb]">
+                                    <div class="border-b border-gray-600 pb-2 mb-2 text-xs font-bold font-sans tracking-widest uppercase flex justify-between">
+                                        <span>SYSTEM.LOG</span>
+                                        <span>[ON]</span>
+                                    </div>
+                                    <div class="text-xs space-y-1 opacity-80 font-mono">
+                                        <p>&gt; INIT OVERSEER_CORE</p>
+                                        <p>&gt; COMPILING SHADERS... <span class="text-green-400">OK</span></p>
+                                        <p>&gt; MAPPING DOM NODES... <span class="text-green-400">OK</span></p>
+                                        <p>&gt; SECURING PAYLOAD...</p>
+                                        <p>&gt; INJECTING UI <span class="animate-pulse">_</span></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="md:col-span-8 space-y-8 text-base">
+                                
+                                <div>
+                                    <h2 class="font-sans font-black text-2xl uppercase border-b-2 border-sysBlack inline-block mb-4">A Null Hypothesis</h2>
+                                    <p class="leading-relaxed mb-4">
+                                        The primary challenge was latency. Rendering 10,000+ active logical nodes across a three-dimensional globe using standard DOM elements was bringing the client's command center to a crawl. The interface was sluggish, unresponsive, and visually cluttered. Standard generic corporate solutions were inadequate.
+                                    </p>
+                                    <p class="leading-relaxed">
+                                        We aggressively transitioned the visualization layer to a custom WebGL context. By offloading the rendering pipeline to the GPU, we achieved a sustained 60 frames per second while simultaneously injecting an aesthetic inspired by militaristic radar interfaces and raw CRT monitors.
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h2 class="font-sans font-black text-2xl uppercase border-b-2 border-sysBlack inline-block mb-4">Interaction Paradigms</h2>
+                                    <p class="leading-relaxed mb-6">
+                                        We completely abandoned the "point-and-click" mentality of modern web applications. The Overseer relies on a command-palette first architecture. Users navigate the matrix via keyboard macros and a heavily customized terminal overlay entirely built in Vue.JS. 
+                                    </p>
+                                    
+                                    <!-- Embedded Graphic Block -->
+                                    <div class="marching-ants p-4 bg-sysWhite">
+                                        <div class="border-2 border-sysBlack p-6 bg-sysBeige flex flex-col md:flex-row gap-6 items-center">
+                                            <div class="w-full md:w-1/2">
+                                                <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=600" alt="Code blocks and abstract programming syntax on screen" class="w-full h-auto border-2 border-sysBlack dither-img">
+                                            </div>
+                                            <div class="w-full md:w-1/2 text-sm font-bold">
+                                                <h4 class="mb-2 font-sans font-black uppercase text-lg">Parser Engine</h4>
+                                                <p>Custom syntactic analysis layer written to convert user string inputs into rapid database queries instantaneously, bypassing standard GUI bloat.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Conclusion / Outcome -->
+                                <div class="pt-8">
+                                    <h2 class="font-sans font-black text-2xl uppercase border-b-2 border-sysBlack inline-block mb-4">Output / Metrics</h2>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div class="border-2 border-sysBlack p-4 shadow-sys hover:bg-sysBlack hover:text-sysWhite transition-colors cursor-default">
+                                            <p class="text-xs uppercase mb-1">Performance Gain</p>
+                                            <p class="font-sans font-black text-4xl">400%</p>
+                                        </div>
+                                        <div class="border-2 border-sysBlack p-4 shadow-sys hover:bg-sysBlack hover:text-sysWhite transition-colors cursor-default">
+                                            <p class="text-xs uppercase mb-1">Render Latency</p>
+                                            <p class="font-sans font-black text-4xl">&lt;16ms</p>
+                                        </div>
+                                        <div class="border-2 border-sysBlack p-4 shadow-sys col-span-2 flex justify-between items-center bg-sysBeige text-sysBlack">
+                                            <p class="text-sm uppercase font-bold">Live Link Authorization</p>
+                                            <a href="#" class="bg-sysBlack text-sysWhite px-4 py-2 text-xs font-bold uppercase hover:bg-transparent hover:text-sysBlack border-2 border-sysBlack transition-colors" rel="nofollow">
+                                                EXECUTE OMNI.URL
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Spacer for scrolling comfort -->
+                        <div class="h-20"></div>
+
+                    </div>
+                </section>
+            </div>
+            
+            <!-- Window Footer / Status Bar -->
+            <div class="border-t-2 border-sysBlack bg-sysWhite px-4 py-1 flex justify-between text-xs font-bold font-sans uppercase">
+                <span>0 CHARACTERS SELECTED</span>
+                <span>PAGE 1 OF 1</span>
+            </div>
+        </article>
+
+    </main>
+
+    <!-- OS Desktop Footer Tools (Optional flavor) -->
+    <div class="fixed bottom-4 right-4 flex gap-4 pointer-events-none">
+        <div class="w-16 h-16 border-2 border-sysBlack bg-sysWhite shadow-sys flex flex-col items-center justify-center p-2 pointer-events-auto cursor-pointer hover:bg-sysBeige">
+            <!-- Floppy Disk Icon (SVG) -->
+            <svg viewBox="0 0 24 24" fill="none" class="w-8 h-8 mb-1" stroke="currentColor" stroke-width="2" stroke-linecap="square">
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                <polyline points="7 3 7 8 15 8"></polyline>
+            </svg>
+            <span class="text-[9px] font-bold tracking-tighter">SAVE</span>
+        </div>
+        <div class="w-16 h-16 border-2 border-sysBlack bg-sysWhite shadow-sys flex flex-col items-center justify-center p-2 pointer-events-auto cursor-pointer hover:bg-sysBeige">
+            <!-- Trash Icon (SVG) -->
+            <svg viewBox="0 0 24 24" fill="none" class="w-8 h-8 mb-1" stroke="currentColor" stroke-width="2" stroke-linecap="square">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                <line x1="10" y1="11" x2="10" y2="17"></line>
+                <line x1="14" y1="11" x2="14" y2="17"></line>
+            </svg>
+            <span class="text-[9px] font-bold tracking-tighter">TRASH</span>
+        </div>
+    </div>
+
+</body>
+</html>

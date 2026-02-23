@@ -1,0 +1,25 @@
+---
+description: HTML, CSS, and JavaScript conventions for the portfolio
+globs: "**/*.html,**/*.css,**/*.js"
+alwaysApply: false
+---
+
+# HTML, CSS, and JS Conventions
+
+## HTML
+- Use semantic elements: `header`, `main`, `nav`, `section`, `article`, `footer`.
+- Set `<html lang="en">` (or correct language).
+- Include `<meta charset="UTF-8">` and viewport meta for responsiveness.
+- Link styles and scripts with relative paths (e.g. `css/main.css`, `js/main.js`).
+
+## CSS
+- Use `css/main.css` as the primary stylesheet; add other files as needed and link from HTML.
+- Prefer CSS custom properties for colors and spacing. Use a small set of variables in `:root`.
+- Use `box-sizing: border-box` (e.g. on `*` or `html`) and avoid layout surprises.
+- Keep selectors specific enough to be maintainable; avoid deep nesting.
+
+## JavaScript
+- Use `'use strict';` at the top of script files.
+- Prefer `DOMContentLoaded` for DOM-dependent code so scripts run after the document is ready.
+- Keep JS minimal unless adding interactivity; avoid inline scripts in HTML when possible.
+- Use relative URLs and paths that work from the site root on GitHub Pages.

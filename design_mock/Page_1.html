@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSTEM_ARCHITECT // V.1.0</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;family=VT323&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'retro-bg': '#E0DBD3',
+                        'retro-window': '#F5F3EF',
+                        'retro-dark': '#111111',
+                        'retro-blue': '#0000EE',
+                        'retro-gray': '#9CA3AF',
+                        'retro-border': '#222222',
+                    },
+                    fontFamily: {
+                        'mono': ['"Space Mono"', 'monospace'],
+                        'pixel': ['"VT323"', 'monospace'],
+                    },
+                    boxShadow: {
+                        'hard': '4px 4px 0px 0px #111111',
+                        'hard-hover': '6px 6px 0px 0px #111111',
+                        'hard-sm': '2px 2px 0px 0px #111111',
+                    },
+                    backgroundImage: {
+                        'dither': 'radial-gradient(#111 1px, transparent 1px)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* CSS Reset & Basics */
+        body {
+            background-color: #E0DBD3;
+            background-image: 
+                linear-gradient(rgba(18, 16, 16, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(18, 16, 16, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            cursor: crosshair;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+            background: #E0DBD3;
+            border-left: 2px solid #111;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #111;
+            border: 2px solid #E0DBD3;
+        }
+        
+        /* CRT Scanline Effect (Subtle for Light Mode) */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.05) 50%,
+                rgba(0,0,0,0.05)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.6;
+            animation: flicker 0.15s infinite;
+        }
+
+        /* Flicker Animation */
+        @keyframes flicker {
+            0% { opacity: 0.58; }
+            5% { opacity: 0.62; }
+            10% { opacity: 0.6; }
+            15% { opacity: 0.65; }
+            100% { opacity: 0.6; }
+        }
+
+        /* Blinking Cursor */
+        .blink {
+            animation: blinker 1s cubic-bezier(1, 0, 0, 1) infinite; 
+        }
+        @keyframes blinker {
+            50% { opacity: 0; }
+        }
+
+        /* Dither Pattern Class */
+        .bg-dither {
+            background-size: 4px 4px;
+            background-image: radial-gradient(#111 20%, transparent 20%);
+        }
+
+        /* Marquee Animation */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Selection styles */
+        ::selection {
+            background: #111;
+            color: #E0DBD3;
+        }
+
+        /* Glitch hover effect on buttons */
+        .glitch-hover:hover {
+            animation: shake 0.3s cubic-bezier(.36,.07,.19,.97) both;
+            transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+    </style>
+</head>
+<body class="font-mono text-retro-dark antialiased min-h-screen flex flex-col relative selection:bg-black selection:text-white">
+
+    <!-- CRT Overlay -->
+    <div class="scanlines"></div>
+
+    <!-- Top Menu Bar (System Bar) -->
+    <header class="fixed top-0 left-0 w-full bg-retro-window border-b-2 border-retro-dark z-50 flex justify-between items-center px-2 h-10 select-none shadow-md">
+        <div class="flex items-center space-x-6 h-full">
+            <div class="flex items-center space-x-2 font-bold hover:bg-retro-dark hover:text-white px-2 cursor-pointer h-full transition-colors">
+                <i class="fa-solid fa-apple-whole"></i>
+                <span class="hidden sm:inline">SYSTEM</span>
+            </div>
+            <nav class="flex h-full">
+                <a href="#about" class="px-3 h-full flex items-center hover:bg-retro-dark hover:text-white transition-colors border-l-2 border-retro-dark text-sm uppercase">File</a>
+                <a href="#projects" class="px-3 h-full flex items-center hover:bg-retro-dark hover:text-white transition-colors border-l-2 border-retro-dark text-sm uppercase">Edit</a>
+                <a href="#contact" class="px-3 h-full flex items-center hover:bg-retro-dark hover:text-white transition-colors border-l-2 border-retro-dark text-sm uppercase">View</a>
+                <span class="px-3 h-full flex items-center border-l-2 border-r-2 border-retro-dark text-sm uppercase bg-retro-dark text-white">Specials</span>
+            </nav>
+        </div>
+        <div class="font-pixel text-xl tracking-widest hidden md:block">
+            TIME: <span id="clock">00:00:00</span>
+        </div>
+    </header>
+
+    <!-- Main Desktop Area -->
+    <main class="flex-grow pt-16 px-4 pb-12 sm:px-8 max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-8 relative z-10">
+
+        <!-- Column 1: Widget Sidebar -->
+        <aside class="md:col-span-3 space-y-6">
+            
+            <!-- Profile Window -->
+            <div class="bg-retro-window border-2 border-retro-dark shadow-hard rounded-lg overflow-hidden group">
+                <div class="bg-retro-window border-b-2 border-retro-dark p-1 flex justify-between items-center px-2 handle cursor-move bg-[url('https://www.transparenttextures.com/patterns/diagmonds-light.png')]">
+                    <span class="text-xs font-bold uppercase tracking-wider">user_id.bmp</span>
+                    <div class="w-3 h-3 border-2 border-retro-dark bg-white hover:bg-black"></div>
+                </div>
+                <div class="p-4 flex flex-col items-center text-center">
+                    <div class="w-32 h-32 border-2 border-retro-dark mb-4 bg-white relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1544717297-fa95b6ee9643?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Profile Picture of a stoic man looking at code" class="w-full h-full object-cover grayscale contrast-125 brightness-110">
+                        <div class="absolute inset-0 bg-dither opacity-20"></div>
+                    </div>
+                    <h1 class="text-xl font-bold mb-1">ALEX_R.EXE</h1>
+                    <p class="text-xs text-retro-gray border-t border-retro-dark pt-2 w-full">FULL_STACK_ARCHITECT</p>
+                    <p class="text-xs mt-2 font-pixel text-lg">LEVEL 28 // HUMAN</p>
+                </div>
+            </div>
+
+            <!-- System Stats Widget -->
+            <div class="bg-retro-window border-2 border-retro-dark shadow-hard rounded-lg overflow-hidden">
+                <div class="bg-retro-dark text-white p-1 px-2 border-b-2 border-retro-dark flex justify-between">
+                    <span class="text-xs uppercase">Memory_Usage</span>
+                    <i class="fa-solid fa-microchip text-xs"></i>
+                </div>
+                <div class="p-4 space-y-3 font-pixel text-lg">
+                    <div class="flex justify-between items-end">
+                        <span>CREATIVITY</span>
+                        <span>98%</span>
+                    </div>
+                    <div class="w-full h-4 border-2 border-retro-dark p-[2px]">
+                        <div class="h-full bg-retro-dark w-[98%] bg-[url('https://www.transparenttextures.com/patterns/diagonal-stripes.png')]"></div>
+                    </div>
+
+                    <div class="flex justify-between items-end pt-2">
+                        <span>CAFFEINE</span>
+                        <span>12%</span>
+                    </div>
+                    <div class="w-full h-4 border-2 border-retro-dark p-[2px]">
+                        <div class="h-full bg-retro-dark w-[12%] animate-pulse"></div>
+                    </div>
+                </div>
+            </div>
+
+        </aside>
+
+        <!-- Column 2: Main Content Area -->
+        <section class="md:col-span-9 space-y-8">
+
+            <!-- Hero Window -->
+            <div class="bg-retro-window border-2 border-retro-dark shadow-hard rounded-lg overflow-hidden relative">
+                <!-- Mac OS Title Bar Styles -->
+                <div class="border-b-2 border-retro-dark p-1 flex items-center justify-between px-2 bg-white">
+                    <div class="flex space-x-1">
+                        <div class="w-10 h-3 border-y-2 border-retro-dark"></div>
+                    </div>
+                    <span class="text-sm font-bold uppercase">README.md - TextEdit</span>
+                    <div class="w-4 h-4 border-2 border-retro-dark bg-white flex items-center justify-center cursor-pointer hover:bg-black hover:text-white transition">
+                        <i class="fa-solid fa-xmark text-[10px]"></i>
+                    </div>
+                </div>
+                
+                <div class="p-6 md:p-10 relative">
+                    <div class="absolute top-4 right-4 text-xs opacity-50 flex flex-col items-end hidden sm:flex">
+                        <span>LAST_LOGIN: TODAY</span>
+                        <span>IP: 127.0.0.1</span>
+                    </div>
+
+                    <h2 class="text-4xl md:text-6xl font-black mb-6 leading-none tracking-tighter">
+                        BUILDING THE <br>
+                        <span class="text-transparent bg-clip-text bg-retro-dark" style="-webkit-text-stroke: 1px black;">DIGITAL FUTURE</span><br>
+                        ON OLD HARDWARE.
+                    </h2>
+                    
+                    <p class="text-lg md:text-xl leading-relaxed mb-8 max-w-2xl border-l-4 border-retro-dark pl-4">
+                        <span class="font-bold">&gt;&gt; INIT_SEQUENCE:</span> I craft high-performance web interfaces with the raw aesthetic of the early web and the power of modern engineering.<span class="blink">_</span>
+                    </p>
+
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#projects" class="group relative px-6 py-3 border-2 border-retro-dark bg-white font-bold uppercase tracking-widest hover:bg-retro-dark hover:text-white transition-all shadow-hard-sm hover:shadow-hard-hover active:translate-y-1 active:shadow-none">
+                            Execute Projects
+                        </a>
+                        <a href="#contact" class="group px-6 py-3 border-2 border-retro-dark bg-transparent font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4">
+                            Ping Me
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projects Grid (Like a file manager) -->
+            <div id="projects" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Project 1 -->
+                <article class="bg-retro-window border-2 border-retro-dark shadow-hard rounded-lg group hover:-translate-y-1 transition-transform duration-200">
+                    <div class="border-b-2 border-retro-dark p-2 flex justify-between items-center bg-gray-100">
+                        <div class="flex items-center space-x-2">
+                            <i class="fa-regular fa-folder-open"></i>
+                            <span class="text-xs font-bold">PROJECT_ALPHA</span>
+                        </div>
+                        <span class="text-[10px] text-gray-500">720KB</span>
+                    </div>
+                    <div class="p-4">
+                        <div class="aspect-video w-full border-2 border-retro-dark mb-4 overflow-hidden relative grayscale group-hover:grayscale-0 transition-all">
+                            <img src="https://images.unsplash.com/vector-1761473974747-f285e8742068?fm=jpg&amp;q=60&amp;w=3000&amp;ixlib=rb-4.1.0&amp;ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDEyfHx8ZW58MHx8fHx8" alt="Abstract architectural shapes" class="object-cover w-full h-full">
+                            <div class="absolute inset-0 bg-dither opacity-10"></div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Fintech Dashboard</h3>
+                        <p class="text-sm mb-4 leading-relaxed">A high-frequency trading platform reimagined as a distinct brutalist interface.</p>
+                        <div class="flex gap-2 text-[10px] uppercase font-bold">
+                            <span class="bg-retro-dark text-white px-1">React</span>
+                            <span class="border border-retro-dark px-1">D3.js</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 2 -->
+                <article class="bg-retro-window border-2 border-retro-dark shadow-hard rounded-lg group hover:-translate-y-1 transition-transform duration-200">
+                    <div class="border-b-2 border-retro-dark p-2 flex justify-between items-center bg-gray-100">
+                        <div class="flex items-center space-x-2">
+                            <i class="fa-regular fa-file-code"></i>
+                            <span class="text-xs font-bold">ECO_COMMERCE</span>
+                        </div>
+                        <span class="text-[10px] text-gray-500">1.4MB</span>
+                    </div>
+                    <div class="p-4">
+                        <div class="aspect-video w-full border-2 border-retro-dark mb-4 overflow-hidden relative grayscale group-hover:grayscale-0 transition-all">
+                            <img src="https://images.unsplash.com/photo-1532372576444-dda954194ad0?ixlib=rb-4.1.0&amp;ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE3fHx8ZW58MHx8fHx8&amp;fm=jpg&amp;q=60&amp;w=3000" alt="Minimalist chair design" class="object-cover w-full h-full">
+                            <div class="absolute inset-0 bg-dither opacity-10"></div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Sustainable Goods</h3>
+                        <p class="text-sm mb-4 leading-relaxed">E-commerce experience focusing on heavy typography and micro-interactions.</p>
+                        <div class="flex gap-2 text-[10px] uppercase font-bold">
+                            <span class="bg-retro-dark text-white px-1">Shopify</span>
+                            <span class="border border-retro-dark px-1">Liquid</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Marquee Alert -->
+            <div class="w-full border-2 border-retro-dark bg-retro-dark text-white py-2 marquee-container font-pixel text-xl uppercase rounded-sm">
+                <div class="marquee-content">
+                    *** SYSTEM ALERT: CURRENTLY ACCEPTING NEW CONTRACTS *** EMAIL FOR INQUIRIES *** SYSTEM ALERT: CURRENTLY ACCEPTING NEW CONTRACTS *** EMAIL FOR INQUIRIES *** 
+                </div>
+            </div>
+
+            <!-- Skills Terminal -->
+            <div class="bg-retro-dark text-white p-4 font-pixel text-lg border-2 border-retro-dark shadow-hard rounded-lg">
+                <p class="mb-4 text-green-400">root@admin:~# list_skills.sh</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 text-sm md:text-base font-mono">
+                    <div class="flex justify-between"><span>&gt; JAVASCRIPT</span><span>[||||||||||]</span></div>
+                    <div class="flex justify-between"><span>&gt; TYPESCRIPT</span><span>[||||||||..]</span></div>
+                    <div class="flex justify-between"><span>&gt; TAILWIND</span><span>[||||||||||]</span></div>
+                    <div class="flex justify-between"><span>&gt; NODE_JS</span><span>[||||||....]</span></div>
+                    <div class="flex justify-between"><span>&gt; DESIGN</span><span>[||||||||..]</span></div>
+                    <div class="flex justify-between"><span>&gt; UI/UX</span><span>[||||||||||]</span></div>
+                </div>
+                <p class="mt-4 animate-pulse">_</p>
+            </div>
+
+            <!-- Contact Section -->
+            <div id="contact" class="bg-retro-window border-2 border-retro-dark shadow-hard rounded-lg p-6 md:p-10 mb-20 text-center">
+                <h3 class="text-2xl font-bold mb-4 uppercase">Terminate Sequence?</h3>
+                <p class="mb-6 max-w-lg mx-auto">Ready to deploy your project? Send a transmission signal.</p>
+                
+                <form class="max-w-md mx-auto space-y-4 text-left">
+                    <div class="relative">
+                        <label class="absolute -top-3 left-3 bg-retro-window px-1 text-xs font-bold">IDENTIFIER</label>
+                        <input type="text" class="w-full bg-transparent border-2 border-retro-dark p-3 focus:outline-none focus:bg-white transition-colors font-mono" placeholder="Enter Name">
+                    </div>
+                    <div class="relative">
+                        <label class="absolute -top-3 left-3 bg-retro-window px-1 text-xs font-bold">MESSAGE_PACKET</label>
+                        <textarea rows="4" class="w-full bg-transparent border-2 border-retro-dark p-3 focus:outline-none focus:bg-white transition-colors font-mono" placeholder="Type command..."></textarea>
+                    </div>
+                    <button type="button" class="w-full bg-retro-dark text-white py-3 font-bold uppercase tracking-widest hover:bg-white hover:text-black border-2 border-retro-dark transition-colors glitch-hover">
+                        Send Signal
+                    </button>
+                </form>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Footer Status Bar -->
+    <footer class="fixed bottom-0 w-full bg-gray-200 border-t-2 border-retro-dark text-xs font-mono py-1 px-4 flex justify-between z-50">
+        <div class="flex space-x-4">
+            <span>STATUS: ONLINE</span>
+            <span class="hidden sm:inline">VRAM: 64KB OK</span>
+        </div>
+        <div>
+            <span>© 1984-2024 INC.</span>
+        </div>
+    </footer>
+
+    <!-- Clock Script -->
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { hour12: false });
+            document.getElementById('clock').textContent = timeString;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Simple draggable logic for fun visuals (not fully functional due to iframe limitations usually, but adds flavor to the code)
+        // Note: For a real production site, use a library like interact.js
+    </script>
+
+</body></html>

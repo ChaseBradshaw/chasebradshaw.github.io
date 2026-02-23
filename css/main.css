@@ -1,0 +1,175 @@
+/* Portfolio design system – shared tokens and components */
+
+:root {
+  --color-bg: #fff;
+  --color-text: #1a1a1a;
+  /* Unified retro palette (matches Tailwind config) */
+  --retro-bg: #E0DBD3;
+  --retro-window: #F5F3EF;
+  --retro-dark: #111111;
+  --retro-blue: #0000EE;
+  --retro-gray: #9CA3AF;
+  --retro-border: #222222;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+/* --- Shared: scrollbar --- */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+  background: var(--retro-bg);
+  border-left: 2px solid var(--retro-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--retro-dark);
+  border: 2px solid var(--retro-bg);
+}
+
+::selection {
+  background: var(--retro-dark);
+  color: var(--retro-window);
+}
+
+/* --- Shared: blink cursor --- */
+.blink {
+  animation: blinker 1s cubic-bezier(1, 0, 0, 1) infinite;
+}
+@keyframes blinker {
+  50% { opacity: 0; }
+}
+
+/* --- Shared: dither pattern --- */
+.bg-dither {
+  background-size: 4px 4px;
+  background-image: radial-gradient(var(--retro-dark) 20%, transparent 20%);
+}
+
+/* --- Shared: marquee --- */
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.marquee-content {
+  display: inline-block;
+  animation: marquee 20s linear infinite;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* --- Shared: glitch hover --- */
+.glitch-hover:hover {
+  animation: shake 0.3s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+/* --- Listing page: window title stripes --- */
+.title-stripes {
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 2px,
+    var(--retro-dark) 2px,
+    var(--retro-dark) 4px
+  );
+}
+
+/* --- Listing page: row hover marquee --- */
+.dir-row:hover .row-marquee {
+  width: 100%;
+  opacity: 1;
+}
+.dir-row:hover .row-text {
+  transform: translateX(20px);
+}
+.animate-marquee {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee 10s linear infinite;
+}
+
+/* --- Listing page: inspector image hover --- */
+.image-mainframe {
+  filter: grayscale(100%) contrast(130%) brightness(0.9);
+  mix-blend-mode: multiply;
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.group\/image:hover .image-mainframe {
+  filter: grayscale(0%) contrast(100%) brightness(1);
+  mix-blend-mode: normal;
+}
+
+/* --- Detail page: titlebar stripes --- */
+.titlebar-stripes {
+  background-image: repeating-linear-gradient(to bottom, transparent, transparent 2px, var(--retro-dark) 2px, var(--retro-dark) 4px);
+  height: 18px;
+  width: 100%;
+}
+
+/* --- Detail page: dither image --- */
+.dither-img {
+  filter: grayscale(100%) contrast(120%) brightness(90%);
+  position: relative;
+}
+.dither-img-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(#000 1px, transparent 1px);
+  background-size: 3px 3px;
+  mix-blend-mode: overlay;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* --- Detail page: marching ants --- */
+.marching-ants {
+  background-image: linear-gradient(to right, var(--retro-dark) 50%, transparent 50%), linear-gradient(to right, var(--retro-dark) 50%, transparent 50%), linear-gradient(to bottom, var(--retro-dark) 50%, transparent 50%), linear-gradient(to bottom, var(--retro-dark) 50%, transparent 50%);
+  background-size: 10px 2px, 10px 2px, 2px 10px, 2px 10px;
+  background-position: 0 0, 0 100%, 0 0, 100% 0;
+  background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+  animation: march 1s linear infinite;
+}
+@keyframes march {
+  0% { background-position: 0 0, 0 100%, 0 0, 100% 0; }
+  100% { background-position: 10px 0, -10px 100%, 0 -10px, 100% 10px; }
+}
+
+/* --- Detail page: custom scrollbar --- */
+.mac-scrollbar::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+  border-left: 2px solid var(--retro-dark);
+}
+.mac-scrollbar::-webkit-scrollbar-track {
+  background-color: var(--retro-window);
+}
+.mac-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--retro-window);
+  border: 2px solid var(--retro-dark);
+}
+
+/* --- Nav active state --- */
+header nav a.nav-active {
+  background: var(--retro-dark);
+  color: var(--retro-window);
+}
