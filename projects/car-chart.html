@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Car Chart // PROJECTS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'retro-bg': '#E0DBD3',
+            'retro-window': '#F5F3EF',
+            'retro-dark': '#111111',
+            'sysBeige': '#EBE9E4',
+          },
+          fontFamily: {
+            'mono': ['"Space Mono"', 'monospace'],
+            'pixel': ['"VT323"', 'monospace'],
+          },
+          boxShadow: {
+            'hard': '4px 4px 0px 0px #111111',
+            'hard-lg': '8px 8px 0px 0px #111111',
+            'hard-hover': '2px 2px 0px 0px #111111',
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #E0DBD3;
+      color: #111111;
+      background-image: radial-gradient(#d1ced1 1px, transparent 1px);
+      background-size: 16px 16px;
+    }
+    /* Hover: reveal full-color image by removing dither overlay */
+    .dither-reveal-on-hover .dither-img {
+      transition: filter 0.3s ease;
+    }
+    .dither-reveal-on-hover:hover .dither-img {
+      filter: none;
+    }
+    .dither-reveal-on-hover::after {
+      transition: opacity 0.3s ease;
+    }
+    .dither-reveal-on-hover:hover::after {
+      opacity: 0;
+    }
+  </style>
+</head>
+<body class="font-mono min-h-screen flex flex-col antialiased pb-20">
+
+  <header class="fixed top-0 left-0 w-full bg-retro-window border-b-2 border-retro-dark z-50 text-sm font-bold shadow-sm h-10">
+    <div class="max-w-7xl mx-auto w-full h-full px-4 sm:px-8 flex justify-between items-center">
+    <div class="flex items-center gap-6 h-full">
+      <a href="../index.html" class="flex items-center gap-2 hover:bg-retro-dark hover:text-white px-2 h-full transition-colors">
+        <i class="fa-solid fa-apple-whole"></i>
+        <span class="hidden sm:inline">SYSTEM</span>
+      </a>
+      <nav class="flex h-full">
+        <a href="../index.html" class="px-3 h-full flex items-center hover:bg-retro-dark hover:text-white transition-colors border-l-2 border-retro-dark text-sm uppercase">Home</a>
+        <a href="../work.html" class="px-3 h-full flex items-center hover:bg-retro-dark hover:text-white transition-colors border-l-2 border-retro-dark text-sm uppercase">Work</a>
+        <a href="../projects.html" class="nav-active px-3 h-full flex items-center border-l-2 border-r-2 border-retro-dark text-sm uppercase bg-retro-dark text-white">Projects</a>
+      </nav>
+    </div>
+    <div class="font-pixel text-lg hidden md:block">
+      TIME: <span id="clock">00:00:00</span>
+    </div>
+    </div>
+  </header>
+
+  <main class="w-full max-w-7xl mx-auto pt-24 px-4 md:px-8 flex-grow">
+
+    <div class="flex justify-between items-end mb-6">
+      <a href="../projects.html" class="group flex items-center gap-2 bg-retro-window border-2 border-retro-dark px-4 py-2 shadow-hard hover:translate-y-[2px] hover:translate-x-[2px] hover:shadow-hard-hover transition-all active:shadow-none active:translate-y-[4px] active:translate-x-[4px] rounded-sm" rel="nofollow">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" class="group-hover:-translate-x-1 transition-transform">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        <span class="font-bold text-sm tracking-widest">DRIVE_C:\PROJECTS</span>
+      </a>
+      <div class="text-xs uppercase border-2 border-retro-dark bg-retro-window px-3 py-1 font-bold">
+        Read-Only Document
+      </div>
+    </div>
+
+    <article class="bg-retro-window border-2 border-retro-dark shadow-hard-lg rounded-sm flex flex-col overflow-hidden">
+
+      <div class="border-b-2 border-retro-dark p-1 flex items-center justify-between bg-retro-window relative">
+        <div class="w-5 h-5 border-2 border-retro-dark ml-2 bg-retro-window hover:bg-retro-dark cursor-pointer z-10"></div>
+        <div class="absolute inset-x-12 inset-y-1 flex items-center justify-center pointer-events-none">
+          <div class="titlebar-stripes absolute inset-0"></div>
+          <div class="bg-retro-window border-2 border-retro-dark px-4 py-0.5 z-10">
+            <h1 class="font-black text-xs md:text-sm tracking-widest uppercase">DOC_ID: CAR_CHART.TXT</h1>
+          </div>
+        </div>
+        <div class="w-5 h-5 flex flex-col justify-between border-2 border-retro-dark mr-2 cursor-pointer z-10 p-[2px] bg-retro-window hover:bg-gray-200">
+          <div class="w-full h-[2px] bg-retro-dark"></div>
+        </div>
+      </div>
+
+      <div class="flex flex-col lg:flex-row h-full">
+        <aside class="w-full lg:w-[300px] border-b-2 lg:border-b-0 lg:border-r-2 border-retro-dark flex flex-col shrink-0">
+          <div class="p-4 border-b-2 border-retro-dark bg-sysBeige">
+            <div class="border-2 border-retro-dark bg-retro-window aspect-square relative dither-img-wrapper overflow-hidden p-2 flex items-center justify-center bg-gray-200">
+              <div class="w-full h-full flex items-center justify-center text-retro-dark text-6xl"><i class="fa-solid fa-chart-line"></i></div>
+            </div>
+            <div class="mt-2 text-center font-bold text-xs uppercase tracking-widest border-t-2 border-retro-dark pt-2">
+              [ FIG 1.0 - SCHEMATIC ]
+            </div>
+          </div>
+          <div class="p-6 flex-grow flex flex-col gap-8">
+            <div>
+              <h3 class="font-black text-sm uppercase border-b-2 border-retro-dark pb-1 mb-3 bg-retro-dark text-retro-window px-2 inline-block">PROJECT_DATA</h3>
+              <ul class="text-sm space-y-2">
+                <li class="flex items-start"><span class="mr-2">&gt;</span><span><strong>STATUS:</strong> Active Dev / Private Alpha</span></li>
+                <li class="flex items-start"><span class="mr-2">&gt;</span><span><strong>YEAR:</strong> 2025</span></li>
+                <li class="flex items-start"><span class="mr-2">&gt;</span><span><strong>SECTOR:</strong> Data Platform</span></li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-black text-sm uppercase border-b-2 border-retro-dark pb-1 mb-3 bg-retro-dark text-retro-window px-2 inline-block">TECH STACK</h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="border border-retro-dark px-2 py-1 text-xs font-bold bg-retro-window shadow-[2px_2px_0px_#111]">PYTHON</span>
+                <span class="border border-retro-dark px-2 py-1 text-xs font-bold bg-retro-window shadow-[2px_2px_0px_#111]">FASTAPI</span>
+                <span class="border border-retro-dark px-2 py-1 text-xs font-bold bg-retro-window shadow-[2px_2px_0px_#111]">POSTGRESQL</span>
+                <span class="border border-retro-dark px-2 py-1 text-xs font-bold bg-retro-window shadow-[2px_2px_0px_#111]">DOCKER</span>
+                <span class="border border-retro-dark px-2 py-1 text-xs font-bold bg-retro-window shadow-[2px_2px_0px_#111]">SELENIUM</span>
+                <span class="border border-retro-dark px-2 py-1 text-xs font-bold bg-retro-window shadow-[2px_2px_0px_#111]">LLMS</span>
+                <span class="border border-retro-dark px-2 py-1 text-xs font-bold bg-retro-window shadow-[2px_2px_0px_#111]">REST APIs</span>
+                <span class="border border-retro-dark px-2 py-1 text-xs font-bold bg-retro-window shadow-[2px_2px_0px_#111]">QUEUE WORKERS</span>
+                <span class="border border-retro-dark px-2 py-1 text-xs font-bold bg-retro-window shadow-[2px_2px_0px_#111]">CUSTOM ADMIN UI</span>
+              </div>
+            </div>
+            <div>
+              <h3 class="font-black text-sm uppercase border-b-2 border-retro-dark pb-1 mb-3 bg-retro-dark text-retro-window px-2 inline-block">FEATURES</h3>
+              <ul class="text-sm space-y-1">
+                <li>[x] AI research orchestration</li>
+                <li>[x] Scraper engine &amp; extractors</li>
+                <li>[x] Queue-based worker design</li>
+                <li>[x] Admin &amp; review UI</li>
+                <li>[x] Canonical matching &amp; validation logic</li>
+                <li>[x] User-facing browser extension</li>
+                <li>[x] Market Analytics</li>
+                <li>[x] Final Price Predictions</li>
+              </ul>
+            </div>
+          </div>
+        </aside>
+
+        <section class="flex-grow flex flex-col h-[80vh] lg:h-auto overflow-hidden">
+          <div class="flex-grow overflow-y-auto p-6 md:p-12 mac-scrollbar relative">
+            <header class="mb-16 border-b-4 border-retro-dark pb-10">
+              <div class="inline-block border-2 border-retro-dark px-3 py-1 text-xs font-bold uppercase mb-4 shadow-hard">Status: Active Development / Private Alpha</div>
+              <h1 class="font-black text-5xl md:text-7xl uppercase leading-[0.9] tracking-tighter mb-6">
+                Car <br>
+                <span class="text-transparent" style="-webkit-text-stroke: 2px #111111;">Chart.</span>
+              </h1>
+              <p class="text-lg md:text-xl font-bold max-w-2xl leading-relaxed bg-sysBeige p-4 border-l-4 border-retro-dark">
+                AI-powered auction analytics &amp; canonical vehicle data platform. A full-stack data platform designed to automate vehicle research, normalize auction data, and surface market insights for car buyers — combining AI-driven research, human-in-the-loop validation, and large-scale auction scraping to build a canonical vehicle database.
+              </p>
+            </header>
+
+            <figure class="mb-16">
+              <div class="border-2 border-retro-dark shadow-hard p-2 bg-retro-window relative dither-img-wrapper dither-reveal-on-hover">
+                <div class="absolute top-0 left-0 w-4 h-4 border-t-4 border-l-4 border-retro-dark -translate-x-[6px] -translate-y-[6px]"></div>
+                <div class="absolute top-0 right-0 w-4 h-4 border-t-4 border-r-4 border-retro-dark translate-x-[6px] -translate-y-[6px]"></div>
+                <div class="absolute bottom-0 left-0 w-4 h-4 border-b-4 border-l-4 border-retro-dark -translate-x-[6px] translate-y-[6px]"></div>
+                <div class="absolute bottom-0 right-0 w-4 h-4 border-b-4 border-r-4 border-retro-dark translate-x-[6px] translate-y-[6px]"></div>
+                <img src="../assets/images/carchart_admin.jpg" alt="Car Chart admin review UI" class="w-full h-auto min-h-[320px] border-2 border-retro-dark object-contain dither-img bg-gray-100" />
+              </div>
+              <figcaption class="mt-4 flex justify-between items-center text-xs font-bold uppercase border-b-2 border-retro-dark pb-2">
+                <span><span class="animate-pulse mr-2">●</span> FEED_01 // ADMIN DASHBOARD - Provides and interface managing the Car Chart system. Everything from managing the scraper queue to reviewing and approving AI-generated catalog data can be done here.</span>
+              </figcaption>
+            </figure>
+
+            <figure class="mb-16">
+              <div class="border-2 border-retro-dark shadow-hard p-2 bg-retro-window relative dither-img-wrapper dither-reveal-on-hover">
+                <div class="absolute top-0 left-0 w-4 h-4 border-t-4 border-l-4 border-retro-dark -translate-x-[6px] -translate-y-[6px]"></div>
+                <div class="absolute top-0 right-0 w-4 h-4 border-t-4 border-r-4 border-retro-dark translate-x-[6px] -translate-y-[6px]"></div>
+                <div class="absolute bottom-0 left-0 w-4 h-4 border-b-4 border-l-4 border-retro-dark -translate-x-[6px] translate-y-[6px]"></div>
+                <div class="absolute bottom-0 right-0 w-4 h-4 border-b-4 border-r-4 border-retro-dark translate-x-[6px] translate-y-[6px]"></div>
+                <img src="../assets/images/carchart_extension_ui.png" alt="Car Chart user-facing extension" class="w-full h-auto min-h-[320px] border-2 border-retro-dark object-contain dither-img bg-gray-100" />
+              </div>
+              <figcaption class="mt-4 flex justify-between items-center text-xs font-bold uppercase border-b-2 border-retro-dark pb-2">
+                <span><span class="animate-pulse mr-2">●</span> FEED_02 // USER_EXTENSION - A browser extension that provides a user-facing interface for the Car Chart system. This extension will automatically provide the user useful information about the vehicle auction they are viewing including market analytics, market trends, comperable vehicles, and final price predictions.</span>
+              </figcaption>
+            </figure>
+
+            <div class="space-y-10 text-base">
+              <div>
+                <h2 class="font-black text-2xl uppercase border-b-2 border-retro-dark inline-block mb-4">Why This Exists</h2>
+                <p class="leading-relaxed mb-4">
+                  The car buying experience is typically a long,frustrating, manual process. Online auction platforms aim to solve this by providing quick, convient auctions for enthusiast vehicles. However, this results in a new problem: Users must decided which auctions are worth their time and effort. Car auction data is messy. Listings vary wildly in naming, trim details, and structure — making meaningful analytics nearly impossible without a clean, canonical dataset. Building that dataset manually (Make → Model → Generation → Trim) is slow, error-prone, and doesn’t scale.
+                </p>
+                <p class="leading-relaxed font-bold bg-sysBeige p-3 border-l-4 border-retro-dark">
+                  The challenge: How do you build a reliable, evolving vehicle hierarchy while ingesting thousands of inconsistent auction listings?
+                </p>
+              </div>
+
+              <div>
+                <h2 class="font-black text-2xl uppercase border-b-2 border-retro-dark inline-block mb-4">Architecture Overview</h2>
+                <p class="leading-relaxed mb-6">
+                  Car Chart is designed as a modular, containerized system with clear separation between orchestration, background workers, and human review.
+                </p>
+                <ul class="space-y-4">
+                  <li class="border-2 border-retro-dark p-4 shadow-hard bg-retro-window">
+                    <strong class="uppercase text-sm">AI Research Agent</strong> — Discovers vehicle models, generations, and trims using LLMs and structures the results into staging tables.
+                  </li>
+                  <li class="border-2 border-retro-dark p-4 shadow-hard bg-retro-window">
+                    <strong class="uppercase text-sm">Human-in-the-Loop Review UI</strong> — A web dashboard for approving, editing, or rejecting AI-generated data before it enters the canonical dataset.
+                  </li>
+                  <li class="border-2 border-retro-dark p-4 shadow-hard bg-retro-window">
+                    <strong class="uppercase text-sm">Queue-Based Scraper System</strong> — Worker containers claim jobs from a database-backed queue and scrape auction data asynchronously.
+                  </li>
+                  <li class="border-2 border-retro-dark p-4 shadow-hard bg-retro-window">
+                    <strong class="uppercase text-sm">Canonical Database Layer</strong> — A normalized PostgreSQL schema that enforces consistency across makes, models, generations, trims, and auctions.
+                  </li>
+                </ul>
+                <p class="leading-relaxed mt-4 text-sm opacity-90">
+                  The API and worker services share a database and log volume — eliminating unnecessary network coupling while maintaining observability.
+                </p>
+              </div>
+
+              <div>
+                <h2 class="font-black text-2xl uppercase border-b-2 border-retro-dark inline-block mb-4">Key Technical Decisions</h2>
+                <div class="space-y-6">
+                  <div>
+                    <h3 class="font-bold uppercase text-sm mb-2">Human-in-the-Loop by Design</h3>
+                    <p class="leading-relaxed">
+                      AI accelerates discovery, but correctness matters. All AI-generated vehicle data enters staging tables and must be explicitly reviewed before promotion to canonical records. This prevents data drift while still allowing rapid expansion.
+                    </p>
+                  </div>
+                  <div>
+                    <h3 class="font-bold uppercase text-sm mb-2">Matching &amp; Deduplication Logic</h3>
+                    <p class="leading-relaxed mb-2">
+                      To avoid duplicates and fragmentation, the system performs automated matching using internal generation codes (e.g. E46, F80), normalized string comparisons, and fuzzy matching thresholds for trims and aliases. Suggested matches are presented during review — speeding approval without sacrificing accuracy.
+                    </p>
+                  </div>
+                  <div>
+                    <h3 class="font-bold uppercase text-sm mb-2">Scalable Scraping Architecture</h3>
+                    <p class="leading-relaxed">
+                      Queue-based job execution using database locks; isolated worker containers with supervised scraper processes; per-auction error handling to ensure long-running jobs continue safely; optional extraction of bids, comments, and metadata. Scraping scales independently from the UI and API layer.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="border-2 border-retro-dark bg-sysBeige p-4">
+                <p class="text-sm font-bold uppercase">Role &amp; Ownership</p>
+                <p class="leading-relaxed mt-1">Solo architect, solo builder — system design, data modeling, AI orchestration, worker design, scraper engine, admin UI, and matching logic.</p>
+              </div>
+            </div>
+            <div class="h-20"></div>
+          </div>
+          <div class="border-t-2 border-retro-dark bg-retro-window px-4 py-1 flex justify-between text-xs font-bold uppercase">
+            <span>0 CHARACTERS SELECTED</span>
+            <span>PAGE 1 OF 1</span>
+          </div>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <script src="../js/main.js"></script>
+  <script>
+    (function() {
+      var el = document.getElementById('clock');
+      if (el) {
+        function updateClock() {
+          var now = new Date();
+          el.textContent = now.toLocaleTimeString('en-US', { hour12: false });
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+      }
+    })();
+  </script>
+</body>
+</html>
